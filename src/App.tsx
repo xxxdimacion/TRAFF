@@ -95,7 +95,7 @@ export default function App() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <button 
               onClick={(e) => scrollToSection(e, 'checkout')} 
-              className="rounded-md bg-[#CF3200] hover:bg-[#A62800] px-5 py-2.5 text-sm font-medium text-white transition-colors uppercase tracking-wide"
+              className="rounded-md bg-[#CF3200] hover:bg-[#A62800] px-5 py-2.5 text-sm font-medium text-white transition-all uppercase tracking-wide border-b-4 border-[#8A2100] active:border-b-0 active:translate-y-1 shadow-lg shadow-[#CF3200]/30"
             >
               ВСТУПИТЬ В TRAFF
             </button>
@@ -118,7 +118,7 @@ export default function App() {
             <a href="#program" onClick={(e) => scrollToSection(e, 'program')} className="hover:text-[#CF3200] transition-colors">Программа</a>
             <button 
               onClick={(e) => scrollToSection(e, 'checkout')} 
-              className="mt-4 w-fit self-start bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-6 rounded-md text-lg transition-colors uppercase tracking-wide text-center"
+              className="mt-4 w-fit self-start bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-6 rounded-md text-lg transition-all uppercase tracking-wide text-center border-b-4 border-[#8A2100] active:border-b-0 active:translate-y-1 shadow-lg shadow-[#CF3200]/30"
             >
               ВСТУПИТЬ В TRAFF
             </button>
@@ -135,21 +135,30 @@ export default function App() {
           initial={{ opacity: 0, y: 150, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[20px] leading-[25px] text-center font-bold tracking-tight mb-8 w-full relative z-0"
+          className="text-[22px] sm:text-[28px] md:text-[34px] leading-[1.3] md:leading-[1.2] text-center font-bold tracking-tight mb-10 w-full relative z-0 max-w-4xl mx-auto"
         >
-          Я собрал весь свой опыт, который позволил мне делать 300к₽ (4к$) в месяц просто запуская рекламу и выкладывая видосики
+          Я собрал весь свой опыт, который позволил мне делать{' '}
+          <span className="relative inline-block whitespace-nowrap">
+            300к₽ (4к$)/мес
+            <svg className="absolute w-full h-3 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none">
+              <path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" />
+            </svg>
+          </span>{' '}
+          просто запуская рекламу и выкладывая видосики
         </motion.h1>
         
-        <motion.div 
-          initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative w-full max-w-[280px] sm:max-w-sm mx-auto aspect-[9/16] bg-stone-900 rounded-[2.5rem] sm:rounded-[3rem] border-[8px] sm:border-[12px] border-stone-800 flex items-center justify-center overflow-hidden shadow-2xl shadow-[#CF3200]/20 z-10"
-        >
-          {/* Dynamic Island */}
-          <div className="absolute top-3 inset-x-0 h-6 w-24 sm:h-7 sm:w-28 mx-auto bg-stone-800 rounded-full z-10 shadow-inner"></div>
-          <span className="text-stone-500 text-sm sm:text-lg">Место для видео</span>
-        </motion.div>
+        <div className="relative w-full max-w-[280px] sm:max-w-sm mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative w-full aspect-[9/16] bg-stone-900 rounded-[2.5rem] sm:rounded-[3rem] border-[8px] sm:border-[12px] border-stone-800 flex items-center justify-center overflow-hidden shadow-2xl shadow-[#CF3200]/20 z-10"
+          >
+            {/* Dynamic Island */}
+            <div className="absolute top-3 inset-x-0 h-6 w-24 sm:h-7 sm:w-28 mx-auto bg-stone-800 rounded-full z-10 shadow-inner"></div>
+            <span className="text-stone-500 text-sm sm:text-lg">Место для видео</span>
+          </motion.div>
+        </div>
       </section>
 
       {/* Marquee */}
@@ -193,8 +202,6 @@ export default function App() {
         </div>
       </div>
 
-      <SectionDivider />
-
       {/* Block 3: Accordion */}
       <motion.section 
         id="program" 
@@ -202,7 +209,7 @@ export default function App() {
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="py-16 md:py-24 px-6 max-w-3xl mx-auto"
+        className="pt-12 pb-16 md:pt-16 md:pb-24 px-6 max-w-3xl mx-auto"
       >
         <h2 className="text-3xl md:text-5xl font-bold mb-8 text-center">Что внутри?</h2>
         <div className="space-y-2">
@@ -234,21 +241,27 @@ export default function App() {
             } 
           />
           <AccordionItem 
-            title="А также:" 
-            content={
-              <div className="space-y-3">
-                <p><strong className="text-white font-medium">Доступ к моим офферам</strong> - тебе не нужно искать, кому продавать трафик. Ты сможешь лить заявки лично мне, за которые я буду платить</p>
-                <p><strong className="text-white font-medium">Моя поддержка</strong> - в любой момент вы можете мне написать и я помогу вам с решением вашей проблемы или проконсультирую по вопросам которые вас интересуют</p>
-                <p><strong className="text-white font-medium">Гайды по Вайбкодингу</strong> - делаем ТГ ботов и шикарные сайты через ИИ без вложений</p>
-                <p><strong className="text-white font-medium">Гайды по Нейроконтенту</strong> - делаем классные видео за копейки</p>
-                <p><strong className="text-white font-medium">Гайды по поиску клиентов</strong> - как искать клиентов чтобы зарабатывать еще больше</p>
-              </div>
-            } 
+            title="Доступ к моим офферам" 
+            content="Тебе не нужно искать, кому продавать трафик. Ты сможешь лить заявки лично мне, за которые я буду платить" 
+          />
+          <AccordionItem 
+            title="Моя поддержка" 
+            content="В любой момент вы можете мне написать и я помогу вам с решением вашей проблемы или проконсультирую по вопросам которые вас интересуют" 
+          />
+          <AccordionItem 
+            title="Гайды по Вайбкодингу" 
+            content="Делаем ТГ ботов и шикарные сайты через ИИ без вложений" 
+          />
+          <AccordionItem 
+            title="Гайды по Нейроконтенту" 
+            content="Делаем классные видео за копейки" 
+          />
+          <AccordionItem 
+            title="Гайды по поиску клиентов" 
+            content="Как искать клиентов чтобы зарабатывать еще больше" 
           />
         </div>
       </motion.section>
-
-      <SectionDivider />
 
       {/* Block: Cases */}
       <motion.section 
@@ -361,8 +374,6 @@ export default function App() {
         </div>
       </motion.section>
 
-      <SectionDivider />
-
       {/* Block: FAQ */}
       <motion.section 
         id="faq" 
@@ -376,32 +387,33 @@ export default function App() {
         <div className="space-y-2">
           <FaqItem 
             title="Кому подойдет TRAFF?" 
-            content="Новичкам, которые хотят уйти из найма и начать зарабатывать онлайн. Арбитражникам для поиска новых связок и масштабирования. И всем, кто хочет освоить нейросети и трафик." 
+            content={
+              <ul className="space-y-3">
+                <li><strong className="text-white">Новичкам</strong>, которые хотят уйти из найма и начать зарабатывать онлайн на арбитраже трафика</li>
+                <li><strong className="text-white">Арбитражникам</strong> для поиска новых источников трафика и масштабирования дохода</li>
+                <li><strong className="text-white">Владельцам каналов или экспертам</strong> для получения трафика сильно дешевле рыночного</li>
+                <li><strong className="text-white">Владельцам бизнесов</strong> для привлечения трафика на свои продукты</li>
+              </ul>
+            } 
           />
           <FaqItem 
             title="Нужен ли бюджет на старт?" 
-            content="Нет. В блоке УБТ (условно-бесплатный трафик) мы подробно разбираем, как начать с полного нуля без вложений в рекламу." 
+            content="Нет. В блоке УБТ (условно-бесплатный трафик) мы подробно разбираем, как начать с полного нуля без вложений в рекламу. А для работы с TikTok ADS и Meta ADS хватит 30$" 
           />
           <FaqItem 
             title="Сколько времени нужно уделять в день?" 
-            content="На старте достаточно 2-3 часов в день. Когда набьете руку и поймете алгоритмы, многие процессы можно будет автоматизировать." 
-          />
-          <FaqItem 
-            title="Я из РФ/РБ, смогу ли я работать?" 
-            content="Да, абсолютно. Все схемы адаптированы под текущие реалии. Мы даем полные сетапы по обходу блокировок, работе с прокси и платежками." 
+            content="На старте достаточно 2-3 часов в день. Когда набьете руку и поймете алгоритмы, многие процессы можно будет автоматизировать" 
           />
           <FaqItem 
             title="Подойдет ли мне, если я полный ноль?" 
-            content="Да. Обучение построено пошагово — от правильной регистрации первого аккаунта до вывода первых заработанных денег." 
+            content="Да. Обучение построено пошагово - от правильной регистрации первого аккаунта до вывода первых заработанных денег" 
           />
           <FaqItem 
             title="Как долго у меня будет доступ к материалам?" 
-            content="Доступ к материалам, всем будущим обновлениям и моей личной поддержке предоставляется НАВСЕГДА." 
+            content={<>Доступ к материалам, всем будущим обновлениям и моей личной поддержке предоставляется <strong className="text-white font-bold">НАВСЕГДА</strong></>} 
           />
         </div>
       </motion.section>
-
-      <SectionDivider />
 
       {/* Block 4: Checkout */}
       <motion.section 
@@ -445,27 +457,38 @@ export default function App() {
               </svg>
             </span>
           </h2>
-          <div className="text-7xl md:text-8xl font-black mb-8 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400">
-            9 900 ₽ <span className="text-4xl md:text-5xl text-stone-500 font-bold tracking-tight">(120$)</span>
+          <div className="mb-8 flex flex-col items-center justify-center gap-1">
+            <span className="text-7xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400">9 900 ₽</span>
+            <span className="text-3xl md:text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400">(120$)</span>
           </div>
           <div className="text-stone-400 text-lg md:text-xl mb-12 space-y-6">
             <p>
-              <strong className="text-white font-medium">Математика простая:</strong> Залил 100 подписчиков и отбил стоимость обучения. По моим гайдам ребята делают этот объем за первые дни работы.
+              <strong className="text-white font-medium">Залил 100 заявок - <span className="relative inline-block whitespace-nowrap">окупил обучение<svg className="absolute w-full h-2 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" /></svg></span>.</strong> По моим гайдам ребята делают этот объем за первые дни работы
             </p>
-            <p>
-              Если остались вопросы, пиши мне - <a href="https://t.me/xxxdimacion" target="_blank" rel="noopener noreferrer" className="text-[#CF3200] hover:underline">@xxxdimacion</a>
-            </p>
-            <p className="text-white font-medium text-xl md:text-2xl">
-              Время действовать. Жми на кнопку ниже и вступай в 💰TRAFF
+            <div className="relative inline-block px-3 sm:px-4 py-3 my-4">
+              {/* Left Bracket */}
+              <svg className="absolute left-0 top-0 h-full w-4 sm:w-5 overflow-visible" viewBox="0 0 20 100" preserveAspectRatio="none" fill="none">
+                <path d="M 17 4 C 7 4 5 9 4 19 C 2 49 3 79 5 89 C 6 95 9 94 17 94" stroke="#CF3200" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+              </svg>
+              {/* Right Bracket */}
+              <svg className="absolute right-0 top-0 h-full w-4 sm:w-5 overflow-visible" viewBox="0 0 20 100" preserveAspectRatio="none" fill="none">
+                <path d="M 3 4 C 13 4 15 9 16 19 C 18 49 17 79 15 89 C 14 95 11 94 3 94" stroke="#CF3200" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+              </svg>
+              <p className="relative z-10 m-0">
+                Если остались вопросы, пиши мне - <a href="https://t.me/xxxdimacion" target="_blank" rel="noopener noreferrer" className="text-[#CF3200] hover:underline">@xxxdimacion</a>
+              </p>
+            </div>
+            <p className="text-white font-normal text-xl md:text-2xl pt-6">
+              Вступай в <strong className="font-bold">TRAFF</strong> и начни зарабатывать свои <strong className="font-bold">первые <span className="relative inline-block whitespace-nowrap">100-200к₽<svg className="absolute w-full h-2 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" /></svg></span></strong>
             </p>
           </div>
           
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
-            <a href="https://t.me/m/rtNyhVGXN2Ji" target="_blank" rel="noopener noreferrer" className="bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-8 rounded-md transition-colors w-full sm:w-auto text-center flex flex-col items-center justify-center">
+            <a href="https://t.me/m/rtNyhVGXN2Ji" target="_blank" rel="noopener noreferrer" className="bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-8 rounded-md transition-all w-full sm:w-auto text-center flex flex-col items-center justify-center border-b-4 border-[#8A2100] active:border-b-0 active:translate-y-1 shadow-lg shadow-[#CF3200]/30">
               <span className="text-base font-bold uppercase tracking-wide">ОПЛАТИТЬ ПЕРЕВОДОМ</span>
               <span className="text-xs text-white/80 mt-0.5 uppercase tracking-wide">(КАРТА И КРИПТА)</span>
             </a>
-            <a href="https://t.me/tribute/app?startapp=sOS7" target="_blank" rel="noopener noreferrer" className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-md transition-colors w-full sm:w-auto text-center flex flex-col items-center justify-center">
+            <a href="https://t.me/tribute/app?startapp=sOS7" target="_blank" rel="noopener noreferrer" className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-md transition-all w-full sm:w-auto text-center flex flex-col items-center justify-center border-b-4 border-blue-700 active:border-b-0 active:translate-y-1 shadow-lg shadow-blue-500/30">
               <span className="text-base font-bold uppercase tracking-wide">ОПЛАТИТЬ ЧЕРЕЗ TRIBUTE</span>
               <span className="text-xs text-white/80 mt-0.5 uppercase tracking-wide">(Любые карты)</span>
             </a>
