@@ -3,9 +3,68 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useId, useCallback, useEffect } from 'react';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { motion } from 'motion/react';
+import useEmblaCarousel from 'embla-carousel-react';
+
+const ImageCarousel = ({ images }: { images: string[] }) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const scrollTo = useCallback((index: number) => {
+    if (emblaApi) emblaApi.scrollTo(index);
+  }, [emblaApi]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi, setSelectedIndex]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+  }, [emblaApi, onSelect]);
+
+  return (
+    <div className="relative w-full overflow-hidden rounded-lg border border-white/5 group">
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex">
+          {images.map((src, idx) => (
+            <div className="flex-[0_0_100%] min-w-0" key={idx}>
+              <img 
+                src={src} 
+                alt={`Slide ${idx + 1}`} 
+                className="w-full h-auto object-cover pointer-events-none" 
+                referrerPolicy="no-referrer" 
+                draggable="false"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      {/* Navigation Dots */}
+      <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={(e) => {
+              e.stopPropagation();
+              scrollTo(idx);
+            }}
+            className={`w-2 h-2 rounded-full transition-colors ${
+              selectedIndex === idx ? 'bg-stone-300' : 'bg-stone-600'
+            }`}
+            aria-label={`Go to slide ${idx + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,32 +77,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-stone-900 text-white font-['Montserrat'] selection:bg-[#CF3200] selection:text-white relative overflow-hidden">
-      {/* Background SVG Grid Pattern */}
-      <svg
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
-      >
-        <defs>
-          <pattern
-            x="50%"
-            y="-1"
-            id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc"
-            width="200"
-            height="200"
-            patternUnits="userSpaceOnUse"
-          >
-            <path d="M.5 200V.5H200" fill="none" />
-          </pattern>
-        </defs>
-        <svg x="50%" y="-1" className="overflow-visible fill-stone-800/20">
-          <path
-            d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
-            strokeWidth="0"
-          />
-        </svg>
-        <rect fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" width="100%" height="100%" strokeWidth="0" />
-      </svg>
-      
       {/* Red Glow */}
       <style>{`
         @keyframes marquee {
@@ -79,7 +112,9 @@ export default function App() {
           
           {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:gap-x-8 lg:items-center lg:justify-center absolute left-1/2 -translate-x-1/2">
-            <a href="#program" onClick={(e) => scrollToSection(e, 'program')} className="text-sm font-semibold leading-6 text-stone-300 hover:text-white transition-colors">Программа</a>
+            <a href="#program" onClick={(e) => scrollToSection(e, 'program')} className="text-sm font-semibold leading-6 text-stone-300 hover:text-white transition-colors">Что внутри?</a>
+            <a href="#cases" onClick={(e) => scrollToSection(e, 'cases')} className="text-sm font-semibold leading-6 text-stone-300 hover:text-white transition-colors">Кейсы</a>
+            <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="text-sm font-semibold leading-6 text-stone-300 hover:text-white transition-colors">Частые вопросы</a>
           </div>
 
           <div className="flex lg:hidden">
@@ -95,7 +130,7 @@ export default function App() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <button 
               onClick={(e) => scrollToSection(e, 'checkout')} 
-              className="rounded-md bg-[#CF3200] hover:bg-[#A62800] px-5 py-2.5 text-sm font-medium text-white transition-all uppercase tracking-wide border-b-4 border-[#8A2100] active:border-b-0 active:translate-y-1 shadow-lg shadow-[#CF3200]/30"
+              className="rounded-md bg-[#CF3200] hover:bg-[#A62800] px-5 py-2.5 text-sm font-medium text-white transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(207,50,0,0.4)] uppercase tracking-wide"
             >
               ВСТУПИТЬ В TRAFF
             </button>
@@ -115,10 +150,13 @@ export default function App() {
           </button>
           <nav className="flex flex-col gap-8 text-2xl font-medium mt-10">
             <a href="#hero" onClick={(e) => scrollToSection(e, 'hero')} className="hover:text-[#CF3200] transition-colors">Главная</a>
-            <a href="#program" onClick={(e) => scrollToSection(e, 'program')} className="hover:text-[#CF3200] transition-colors">Программа</a>
+            <a href="#program" onClick={(e) => scrollToSection(e, 'program')} className="hover:text-[#CF3200] transition-colors">Что внутри?</a>
+            <a href="#cases" onClick={(e) => scrollToSection(e, 'cases')} className="hover:text-[#CF3200] transition-colors">Кейсы</a>
+            <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="hover:text-[#CF3200] transition-colors">Частые вопросы</a>
+            
             <button 
               onClick={(e) => scrollToSection(e, 'checkout')} 
-              className="mt-4 w-fit self-start bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-6 rounded-md text-lg transition-all uppercase tracking-wide text-center border-b-4 border-[#8A2100] active:border-b-0 active:translate-y-1 shadow-lg shadow-[#CF3200]/30"
+              className="mt-4 w-fit self-start bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-6 rounded-md text-lg transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(207,50,0,0.4)] uppercase tracking-wide text-center"
             >
               ВСТУПИТЬ В TRAFF
             </button>
@@ -131,6 +169,7 @@ export default function App() {
         id="hero" 
         className="relative pt-32 pb-24 sm:pt-40 sm:pb-32 min-h-screen flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto"
       >
+        <GridBackground />
         <motion.h1 
           initial={{ opacity: 0, y: 150, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -250,15 +289,15 @@ export default function App() {
           />
           <AccordionItem 
             title="Гайды по Вайбкодингу" 
-            content="Делаем ТГ ботов и шикарные сайты через ИИ без вложений" 
+            content="Делаем сайты, Telegram-ботов и даже мини-игры вообще без навыков программирования" 
           />
           <AccordionItem 
             title="Гайды по Нейроконтенту" 
-            content="Делаем классные видео за копейки" 
+            content="Показываю как делать ИИ видео и фото для цепляющего контента" 
           />
           <AccordionItem 
             title="Гайды по поиску клиентов" 
-            content="Как искать клиентов чтобы зарабатывать еще больше" 
+            content="Где брать адекватных заказчиков на свой трафик. Даю простые скрипты общения: что и кому писать, чтобы люди хотели с тобой работать и платили нормальные деньги без долгих уговоров" 
           />
         </div>
       </motion.section>
@@ -270,9 +309,10 @@ export default function App() {
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="py-16 md:py-24 bg-stone-900/50"
+        className="py-16 md:py-24 bg-stone-900/50 relative"
       >
-        <div className="max-w-6xl mx-auto px-6">
+        <GridBackground />
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
           <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center">Кейсы участников</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <motion.div 
@@ -285,13 +325,20 @@ export default function App() {
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">1</div>
                 <div>
-                  <h3 className="font-bold text-lg">Ученик 1</h3>
-                  <p className="text-[#CF3200] font-medium">$1,200 за 3 недели</p>
+                  <h3 className="font-bold text-lg">Максим</h3>
+                  <p className="text-[#CF3200] font-medium">1000$ и ROI 220%</p>
                 </div>
               </div>
-              <p className="text-stone-400 text-sm">Залетел на УБТ с полного нуля. Сделал сетку из 5 аккаунтов в TikTok, нашел профитную связку и вывел первые деньги.</p>
-              <div className="mt-auto aspect-video bg-stone-800 rounded-lg flex items-center justify-center border border-white/5">
-                <span className="text-stone-600 text-xs">Скриншот</span>
+              <div className="text-stone-400 text-sm space-y-2">
+                <p>До этого он пытался лить TikTok ADS на оффер который у него уже был, но получалось не очень.</p>
+                <p>После вступления в TRAFF буквально за 12 дней он заработал <strong className="text-white">80.000 рублей</strong> открутив всего 400$ на рекламу</p>
+              </div>
+              <div className="mt-auto">
+                <ImageCarousel images={[
+                  "https://i.ibb.co/1f0vBJj9/Frame-43160.png",
+                  "https://i.ibb.co/7dc5RWmq/Gemini-Generated-Image-ao8s30ao8s30ao8s.png",
+                  "https://i.ibb.co/P8z1JbR/Frame-43162.png"
+                ]} />
               </div>
             </motion.div>
             <motion.div 
@@ -304,13 +351,24 @@ export default function App() {
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">2</div>
                 <div>
-                  <h3 className="font-bold text-lg">Ученик 2</h3>
-                  <p className="text-[#CF3200] font-medium">Вышел на 100к₽/мес</p>
+                  <h3 className="font-bold text-lg">Артём</h3>
+                  <p className="text-[#CF3200] font-medium">800$ за 8 дней</p>
                 </div>
               </div>
-              <p className="text-stone-400 text-sm">Раньше работал в найме. Начал лить Meta ADS по гайдам, нашел первого клиента через неделю.</p>
-              <div className="mt-auto aspect-video bg-stone-800 rounded-lg flex items-center justify-center border border-white/5">
-                <span className="text-stone-600 text-xs">Скриншот</span>
+              <div className="text-stone-400 text-sm space-y-2">
+                <p>Никогда не занимался арбитражом трафика, и умел лишь базово монтировать видео</p>
+                <p>Сразу начал изучать TikTok ADS. Глянул видосы и просто повторил. За 2 дня он нашел эксперта, которому нужен был трафик и начал лить</p>
+                <div className="pt-1">
+                  <p><strong className="text-white">Итог:</strong></p>
+                  <ul className="list-disc pl-4 mt-1 space-y-1">
+                    <li>Потрачено на рекламу: <strong className="text-white">300$</strong></li>
+                    <li>Перелил подписчиков: <strong className="text-white">1017 шт</strong></li>
+                    <li>Чистая прибыль: <strong className="text-white">815$</strong></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-auto rounded-lg overflow-hidden border border-white/5">
+                <img src="https://i.ibb.co/tTRQm84z/Group-1000011021.png" alt="Group-1000011021" className="w-full h-auto" referrerPolicy="no-referrer" />
               </div>
             </motion.div>
             <motion.div 
@@ -323,51 +381,16 @@ export default function App() {
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">3</div>
                 <div>
-                  <h3 className="font-bold text-lg">Ученик 3</h3>
-                  <p className="text-[#CF3200] font-medium">$500 на пассиве</p>
+                  <h3 className="font-bold text-lg">Алекс</h3>
+                  <p className="text-[#CF3200] font-medium">87.000₽ за 10 дней</p>
                 </div>
               </div>
-              <p className="text-stone-400 text-sm">Сделал Telegram-бота через ИИ по гайду из Вайбкодинга. Теперь бот стабильно приносит пассивный доход.</p>
-              <div className="mt-auto aspect-video bg-stone-800 rounded-lg flex items-center justify-center border border-white/5">
-                <span className="text-stone-600 text-xs">Скриншот</span>
+              <div className="text-stone-400 text-sm space-y-2">
+                <p>Алекс решил себя попробовать в <strong className="text-white">УБТ арбитраже</strong>. По гайдам сделал аккаунты с Инсте, Ютубе и ТикТоке, и начал заливать видео.</p>
+                <p>За <strong className="text-white">10 дней</strong> он собрал в сумме примерно <strong className="text-white">400.000</strong> просмотров и перелил <strong className="text-white">1057</strong> заявок, за которые ему заплатили <strong className="text-white">1057$</strong></p>
               </div>
-            </motion.div>
-            <motion.div 
-              initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              className="bg-stone-800/30 border border-white/10 rounded-2xl p-6 flex flex-col gap-4 lg:col-start-1 lg:col-end-2 lg:translate-x-1/2"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">4</div>
-                <div>
-                  <h3 className="font-bold text-lg">Ученик 4</h3>
-                  <p className="text-[#CF3200] font-medium">ROI 300% в TikTok Ads</p>
-                </div>
-              </div>
-              <p className="text-stone-400 text-sm">Разобрался с антидетектами и прокси, запустил первую кампанию и окупил вложения в 3 раза за пару дней.</p>
-              <div className="mt-auto aspect-video bg-stone-800 rounded-lg flex items-center justify-center border border-white/5">
-                <span className="text-stone-600 text-xs">Скриншот</span>
-              </div>
-            </motion.div>
-            <motion.div 
-              initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-              className="bg-stone-800/30 border border-white/10 rounded-2xl p-6 flex flex-col gap-4 lg:col-start-2 lg:col-end-3 lg:translate-x-1/2"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">5</div>
-                <div>
-                  <h3 className="font-bold text-lg">Ученик 5</h3>
-                  <p className="text-[#CF3200] font-medium">Бросил универ</p>
-                </div>
-              </div>
-              <p className="text-stone-400 text-sm">Начал делать нейроконтент на заказ. Клиенты в шоке от качества, а я трачу на ролик 15 минут.</p>
-              <div className="mt-auto aspect-video bg-stone-800 rounded-lg flex items-center justify-center border border-white/5">
-                <span className="text-stone-600 text-xs">Скриншот</span>
+              <div className="mt-auto">
+                <img src="https://i.ibb.co/MkjbDJRb/image-71s8.png" alt="Результат Алекса" className="w-full h-auto rounded-lg border border-white/5" referrerPolicy="no-referrer" />
               </div>
             </motion.div>
           </div>
@@ -394,6 +417,16 @@ export default function App() {
                 <li><strong className="text-white">Владельцам каналов или экспертам</strong> для получения трафика сильно дешевле рыночного</li>
                 <li><strong className="text-white">Владельцам бизнесов</strong> для привлечения трафика на свои продукты</li>
               </ul>
+            } 
+          />
+          <FaqItem 
+            title="Я из РФ/РБ. Смогу ли я лить трафик?" 
+            content={
+              <div className="space-y-3">
+                <p>Конечно! И это наше главное преимущество. То, что TikTok и Meta отключили для РФ/РБ - нам только на руку, потому что на рынке осталось меньше конкурентов</p>
+                <p>В Академии есть отдельный подробный блок по обходу всех ограничений. От прокси и антидетект браузеров до виртуальных карт</p>
+                <p>Никаких границ нет, мы спокойно работаем на весь мир</p>
+              </div>
             } 
           />
           <FaqItem 
@@ -424,30 +457,7 @@ export default function App() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="py-24 px-6 flex items-center justify-center min-h-[80vh] relative"
       >
-        <svg
-          aria-hidden="true"
-          className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
-        >
-          <defs>
-            <pattern
-              x="50%"
-              y="0"
-              id="checkout-pattern"
-              width="200"
-              height="200"
-              patternUnits="userSpaceOnUse"
-            >
-              <path d="M.5 200V.5H200" fill="none" />
-            </pattern>
-          </defs>
-          <svg x="50%" y="0" className="overflow-visible fill-stone-800/20">
-            <path
-              d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
-              strokeWidth="0"
-            />
-          </svg>
-          <rect fill="url(#checkout-pattern)" width="100%" height="100%" strokeWidth="0" />
-        </svg>
+        <GridBackground />
         <div className="text-center max-w-2xl w-full">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Доступ <span className="relative inline-block">
@@ -484,11 +494,11 @@ export default function App() {
           </div>
           
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
-            <a href="https://t.me/m/rtNyhVGXN2Ji" target="_blank" rel="noopener noreferrer" className="bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-8 rounded-md transition-all w-full sm:w-auto text-center flex flex-col items-center justify-center border-b-4 border-[#8A2100] active:border-b-0 active:translate-y-1 shadow-lg shadow-[#CF3200]/30">
+            <a href="https://t.me/m/rtNyhVGXN2Ji" target="_blank" rel="noopener noreferrer" className="bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-8 rounded-md transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(207,50,0,0.4)] w-full sm:w-auto text-center flex flex-col items-center justify-center">
               <span className="text-base font-bold uppercase tracking-wide">ОПЛАТИТЬ ПЕРЕВОДОМ</span>
               <span className="text-xs text-white/80 mt-0.5 uppercase tracking-wide">(КАРТА И КРИПТА)</span>
             </a>
-            <a href="https://t.me/tribute/app?startapp=sOS7" target="_blank" rel="noopener noreferrer" className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-md transition-all w-full sm:w-auto text-center flex flex-col items-center justify-center border-b-4 border-blue-700 active:border-b-0 active:translate-y-1 shadow-lg shadow-blue-500/30">
+            <a href="https://t.me/tribute/app?startapp=sOS7" target="_blank" rel="noopener noreferrer" className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-md transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] w-full sm:w-auto text-center flex flex-col items-center justify-center">
               <span className="text-base font-bold uppercase tracking-wide">ОПЛАТИТЬ ЧЕРЕЗ TRIBUTE</span>
               <span className="text-xs text-white/80 mt-0.5 uppercase tracking-wide">(Любые карты)</span>
             </a>
@@ -576,5 +586,35 @@ function SectionDivider() {
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-[#CF3200]/50 to-transparent"></div>
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-16 bg-[#CF3200]/10 blur-3xl rounded-full pointer-events-none"></div>
     </motion.div>
+  );
+}
+
+function GridBackground() {
+  const patternId = useId();
+  return (
+    <svg
+      aria-hidden="true"
+      className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+    >
+      <defs>
+        <pattern
+          x="50%"
+          y="0"
+          id={patternId}
+          width="200"
+          height="200"
+          patternUnits="userSpaceOnUse"
+        >
+          <path d="M.5 200V.5H200" fill="none" />
+        </pattern>
+      </defs>
+      <svg x="50%" y="0" className="overflow-visible fill-stone-800/20">
+        <path
+          d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+          strokeWidth="0"
+        />
+      </svg>
+      <rect fill={`url(#${patternId})`} width="100%" height="100%" strokeWidth="0" />
+    </svg>
   );
 }
