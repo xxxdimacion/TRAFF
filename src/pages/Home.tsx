@@ -165,22 +165,26 @@ export default function Home() {
         id="hero" 
         className="relative pt-32 pb-24 sm:pt-40 sm:pb-32 min-h-screen flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto"
       >
-        <GridBackground />
-        <motion.h1 
+        <GridBackground className="[mask-image:linear-gradient(to_bottom,white_0%,white_20%,transparent_60%)]" />
+        <motion.div
           initial={{ opacity: 0, y: 150, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[22px] sm:text-[28px] md:text-[34px] leading-[1.3] md:leading-[1.2] text-center font-bold tracking-tight mb-10 w-full relative z-0 max-w-4xl mx-auto"
+          className="mb-10 w-full relative z-0 max-w-4xl mx-auto"
         >
-          Я собрал весь свой опыт, который позволил мне делать{' '}
-          <span className="relative inline-block whitespace-nowrap">
-            300к₽ (4к$)/мес
-            <svg className="absolute w-full h-3 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none">
-              <path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" />
-            </svg>
-          </span>{' '}
-          просто запуская рекламу и выкладывая видосики
-        </motion.h1>
+          <h1 className="text-[26px] sm:text-[34px] md:text-[42px] leading-[1.2] text-center font-bold tracking-tight mb-6">
+            Как с нуля выйти <br />
+            на <span className="relative inline-block whitespace-nowrap">
+              2-3k$ в месяц
+              <svg className="absolute w-full h-3 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none">
+                <path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" />
+              </svg>
+            </span> на арбитраже трафика?
+          </h1>
+          <p className="text-sm sm:text-base md:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed font-medium">
+            <strong className="text-white font-bold">Смотри видео ниже:</strong> внутри готовая система, которая сэкономит тебе месяцы тестов, нервов и решит 99% проблем с банами и поиском связок
+          </p>
+        </motion.div>
         
         <div className="relative w-full max-w-[280px] sm:max-w-sm mx-auto">
           <motion.div 
@@ -347,7 +351,10 @@ export default function Home() {
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">2</div>
                 <div>
-                  <h3 className="font-bold text-lg">Артём</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-bold text-lg">Артём</h3>
+                    <a href="https://t.me/xxxtimacion" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors">@xxxtimacion</a>
+                  </div>
                   <p className="text-[#CF3200] font-medium">800$ за 8 дней</p>
                 </div>
               </div>
@@ -377,7 +384,10 @@ export default function Home() {
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">3</div>
                 <div>
-                  <h3 className="font-bold text-lg">Алекс</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-bold text-lg">Алекс</h3>
+                    <a href="https://t.me/alexcryptooooo" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors">@alexcryptooooo</a>
+                  </div>
                   <p className="text-[#CF3200] font-medium">87.000₽ за 10 дней</p>
                 </div>
               </div>
@@ -463,9 +473,9 @@ export default function Home() {
               </svg>
             </span>
           </h2>
-          <div className="mb-8 flex flex-col items-center justify-center gap-1">
-            <span className="text-7xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400">9 900 ₽</span>
-            <span className="text-3xl md:text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400">(120$)</span>
+          <div className="mb-8 flex flex-col items-center justify-center">
+            <span className="text-7xl sm:text-8xl md:text-9xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400 leading-none px-2 py-2">120 $</span>
+            <span className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400 leading-none px-2 py-2 -mt-2">(9900 ₽)</span>
           </div>
           <div className="text-stone-400 text-lg md:text-xl mb-12 space-y-6">
             <p>
@@ -511,6 +521,9 @@ export default function Home() {
             <Link to="/offer" className="hover:text-white transition-colors">Договор оферты</Link>
             <Link to="/privacy" className="hover:text-white transition-colors">Политика конфиденциальности</Link>
           </div>
+          <p className="text-[10px] text-stone-600 max-w-2xl text-center leading-tight">
+            * Meta Platforms Inc. (владелец Facebook и Instagram) признана экстремистской организацией, её деятельность запрещена на территории Российской Федерации.
+          </p>
         </div>
       </footer>
     </div>
@@ -586,12 +599,12 @@ function SectionDivider() {
   );
 }
 
-function GridBackground() {
+function GridBackground({ className = "[mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" }: { className?: string }) {
   const patternId = useId();
   return (
     <svg
       aria-hidden="true"
-      className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+      className={`absolute inset-0 -z-10 h-full w-full stroke-white/10 ${className}`}
     >
       <defs>
         <pattern
