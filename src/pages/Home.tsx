@@ -197,15 +197,13 @@ export default function Home() {
             <div className="relative w-full aspect-[16/10] bg-stone-950 rounded-t-xl sm:rounded-t-3xl border-[6px] sm:border-[12px] border-stone-800 flex items-center justify-center overflow-hidden shadow-2xl shadow-[#CF3200]/20">
               {/* MacBook Pro Notch */}
               <div className="absolute top-0 inset-x-0 mx-auto w-16 sm:w-24 h-2.5 sm:h-3.5 bg-stone-800 rounded-b-sm sm:rounded-b-md z-20 flex items-center justify-center">
-                {/* Camera dot */}
-                <div className="h-1 w-1 sm:h-1.5 sm:w-1.5 bg-stone-950 rounded-full opacity-80 shadow-inner"></div>
               </div>
               
               {/* Video Player */}
               <div className="w-full h-full bg-stone-900 flex items-center justify-center overflow-hidden">
                 <iframe 
                   className="w-full h-full"
-                  src="https://www.youtube.com/embed/OvbZeqIxbXI?autoplay=1&mute=1&loop=1&playlist=OvbZeqIxbXI&controls=1&rel=0" 
+                  src="https://www.youtube-nocookie.com/embed/OvbZeqIxbXI?rel=0&modestbranding=1" 
                   title="TRAFF Video" 
                   frameBorder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
