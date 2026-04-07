@@ -186,17 +186,49 @@ export default function Home() {
           </p>
         </motion.div>
         
-        <div className="relative w-full max-w-[280px] sm:max-w-sm mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center mt-8">
           <motion.div 
             initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="relative w-full aspect-[9/16] bg-stone-900 rounded-[2.5rem] sm:rounded-[3rem] border-[8px] sm:border-[12px] border-stone-800 flex items-center justify-center overflow-hidden shadow-2xl shadow-[#CF3200]/20 z-10"
+            className="relative w-full z-10 flex flex-col items-center px-4 sm:px-0"
           >
-            {/* Dynamic Island */}
-            <div className="absolute top-3 inset-x-0 h-6 w-24 sm:h-7 sm:w-28 mx-auto bg-stone-800 rounded-full z-10 shadow-inner"></div>
-            <span className="text-stone-500 text-sm sm:text-lg">Место для видео</span>
+            {/* Screen Frame */}
+            <div className="relative w-full aspect-[16/10] bg-stone-950 rounded-t-xl sm:rounded-t-3xl border-[6px] sm:border-[12px] border-stone-800 flex items-center justify-center overflow-hidden shadow-2xl shadow-[#CF3200]/20">
+              {/* MacBook Pro Notch */}
+              <div className="absolute top-0 inset-x-0 mx-auto w-16 sm:w-24 h-2.5 sm:h-3.5 bg-stone-800 rounded-b-sm sm:rounded-b-md z-20 flex items-center justify-center">
+                {/* Camera dot */}
+                <div className="h-1 w-1 sm:h-1.5 sm:w-1.5 bg-stone-950 rounded-full opacity-80 shadow-inner"></div>
+              </div>
+              
+              {/* Video Player */}
+              <div className="w-full h-full bg-stone-900 flex items-center justify-center overflow-hidden">
+                <iframe 
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/OvbZeqIxbXI?autoplay=1&mute=1&loop=1&playlist=OvbZeqIxbXI&controls=1&rel=0" 
+                  title="TRAFF Video" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+            {/* Base */}
+            <div className="relative w-[115%] sm:w-[110%] h-3 sm:h-5 bg-gradient-to-b from-stone-400 to-stone-600 rounded-b-xl sm:rounded-b-2xl flex justify-center shadow-2xl">
+              {/* Thumb notch */}
+              <div className="w-16 sm:w-24 h-1.5 sm:h-2 bg-stone-500 rounded-b-md shadow-inner"></div>
+            </div>
           </motion.div>
+          
+          <motion.button 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            onClick={(e) => scrollToSection(e, 'checkout')} 
+            className="mt-24 sm:mt-36 bg-[#CF3200] hover:bg-[#A62800] text-white font-bold py-4 px-10 sm:px-16 rounded-md text-lg sm:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(207,50,0,0.5)] uppercase tracking-wide w-full sm:w-auto"
+          >
+            ВСТУПИТЬ В TRAFF
+          </motion.button>
         </div>
       </section>
 
