@@ -200,10 +200,10 @@ export default function Home() {
               </div>
               
               {/* Video Player */}
-              <div className="w-full h-full bg-stone-900 flex items-center justify-center overflow-hidden">
+              <div className="w-full h-full bg-stone-900 flex items-center justify-center overflow-hidden relative">
                 <iframe 
                   className="w-full h-full"
-                  src="https://www.youtube-nocookie.com/embed/OvbZeqIxbXI?rel=0&modestbranding=1" 
+                  src="https://iframe.mediadelivery.net/embed/634586/27851b22-940d-48ea-8b6a-33b7be6e3dc2?autoplay=false&loop=false&muted=false&preload=true&responsive=true" 
                   title="TRAFF Video" 
                   frameBorder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
