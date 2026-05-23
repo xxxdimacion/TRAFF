@@ -1,5 +1,5 @@
 import React, { useState, useId, useCallback, useEffect } from 'react';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,16 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
 
   const scrollTo = useCallback((index: number) => {
     if (emblaApi) emblaApi.scrollTo(index);
+  }, [emblaApi]);
+
+  const scrollPrev = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
   const onSelect = useCallback(() => {
@@ -48,8 +58,24 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
         </div>
       </div>
       
+      {/* Navigation Arrows */}
+      <button 
+        onClick={scrollPrev}
+        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1.5 backdrop-blur-sm transition-colors z-10"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+      </button>
+      <button 
+        onClick={scrollNext}
+        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1.5 backdrop-blur-sm transition-colors z-10"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+      </button>
+
       {/* Navigation Dots */}
-      <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+      <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-10 pointer-events-auto">
         {images.map((_, idx) => (
           <button
             key={idx}
