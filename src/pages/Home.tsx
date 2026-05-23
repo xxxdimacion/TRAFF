@@ -163,7 +163,10 @@ export default function Home() {
           transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mb-10 w-full relative z-0 max-w-4xl mx-auto"
         >
-          <h1 className="text-[26px] sm:text-[34px] md:text-[42px] leading-[1.2] text-center font-bold tracking-tight mb-6">
+          <h1 
+            className="text-[28px] sm:text-4xl md:text-[46px] leading-[1.15] text-center font-black tracking-tighter mb-6 text-white"
+            style={{ textShadow: "2px 2px 0px rgba(255, 255, 255, 0.15)" }}
+          >
             Как с нуля выйти <br />
             на <span className="relative inline-block whitespace-nowrap">
               2-3k$ в месяц
@@ -309,7 +312,10 @@ export default function Home() {
         className="pt-16 md:pt-24 pb-8 md:pb-12 bg-stone-900/50 relative"
       >
         <div className="max-w-6xl mx-auto px-6 relative z-10">
-          <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-white">
+          <h2 
+            className="text-4xl md:text-6xl font-black mb-12 text-center tracking-tighter text-white"
+            style={{ textShadow: "3px 3px 0px rgba(255, 255, 255, 0.15)" }}
+          >
             Кейсы участников
           </h2>
           <div className="overflow-hidden -mx-6 px-6" ref={casesEmblaRef}>
@@ -520,7 +526,7 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="pt-12 pb-24 px-6 flex items-center justify-center min-h-[50vh] relative z-10"
+        className="pt-12 pb-12 px-6 flex items-center justify-center relative z-10"
       >
         <div className="text-center max-w-2xl w-full">
           <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter text-white">
@@ -543,7 +549,7 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="flex flex-col gap-4 justify-center mb-12 max-w-[420px] mx-auto">
+          <div className="flex flex-col gap-4 justify-center mb-8 max-w-[420px] mx-auto">
             <a href="https://t.me/m/rtNyhVGXN2Ji" target="_blank" rel="noopener noreferrer" className="bg-[#CF3200] hover:bg-[#A62800] text-white py-4 px-8 rounded-lg transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(207,50,0,0.4)] w-full text-center flex flex-col items-center justify-center">
               <span className="text-base sm:text-lg font-bold uppercase tracking-wide">ОПЛАТИТЬ ПЕРЕВОДОМ</span>
               <span className="text-xs sm:text-sm font-semibold text-white/90 mt-0.5 uppercase tracking-wide">(КАРТА И КРИПТА)</span>
@@ -554,12 +560,8 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="text-stone-300 text-lg flex flex-col items-center justify-center space-y-6 mt-16 px-4">
-            <p className="text-white font-bold text-2xl sm:text-3xl md:text-5xl text-center leading-tight max-w-[320px] sm:max-w-xl md:max-w-2xl mx-auto">
-              Вступай в <strong className="font-black text-[#CF3200]">TRAFF</strong> и сделай свои <strong className="font-black text-white relative inline-block whitespace-nowrap">первые 2-3к$<svg className="absolute w-full h-2 sm:h-3 -bottom-1 sm:-bottom-2 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none" /></svg></strong>
-            </p>
-
-            <div className="relative inline-block px-6 py-4 my-4 text-center mt-8">
+          <div className="text-stone-300 text-lg flex flex-col items-center justify-center mt-6 px-4">
+            <div className="relative inline-block px-6 py-4 text-center">
               {/* Left Bracket */}
               <svg className="absolute left-0 top-0 h-full w-5 sm:w-6 overflow-visible" viewBox="0 0 20 100" preserveAspectRatio="none" fill="none">
                 <path d="M 17 4 C 7 4 5 9 4 19 C 2 49 3 79 5 89 C 6 95 9 94 17 94" stroke="#CF3200" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
