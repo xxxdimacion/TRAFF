@@ -25,7 +25,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
   }, [emblaApi, onSelect]);
 
   return (
-    <div className="relative w-full overflow-hidden rounded-lg border border-white/5 bg-stone-900/50 group">
+    <div className="relative w-full overflow-hidden rounded-lg border border-stone-200 bg-stone-100 group">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex items-center">
           {images.map((src, idx) => (
@@ -73,17 +73,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-900 text-white font-['Montserrat'] selection:bg-[#CF3200] selection:text-white relative overflow-hidden">
+    <div className="min-h-screen bg-stone-900 text-white font-['Montserrat'] selection:bg-[#CF3200] selection:text-white relative overflow-hidden flex flex-col">
       {/* Red Glow */}
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 20s linear infinite;
-        }
-      `}</style>
       <div
         aria-hidden="true"
         className="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)] pointer-events-none"
@@ -98,7 +89,7 @@ export default function Home() {
       </div>
 
       {/* Header */}
-      <header className="fixed inset-x-0 top-0 z-50 bg-stone-900/80 backdrop-blur-md border-b border-white/5">
+      <header className="fixed inset-x-0 top-0 z-50 bg-stone-900/80 backdrop-blur-md border-b border-white/5 w-full">
         <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8">
           <div className="flex lg:flex-1">
             <a href="#hero" onClick={(e) => scrollToSection(e, 'hero')} className="-m-1.5 p-1.5 flex items-center">
@@ -166,7 +157,6 @@ export default function Home() {
         id="hero" 
         className="relative pt-32 pb-24 sm:pt-40 sm:pb-32 min-h-screen flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto"
       >
-        <GridBackground className="[mask-image:linear-gradient(to_bottom,white_0%,white_20%,transparent_60%)]" />
         <motion.div
           initial={{ opacity: 0, y: 150, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -231,47 +221,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marquee */}
-      <div className="w-full bg-[#CF3200] py-4 overflow-hidden flex whitespace-nowrap">
-        <div className="animate-marquee flex gap-8 items-center text-white font-black text-xl md:text-2xl uppercase tracking-widest">
-          <span>TIKTOK ADS</span>
-          <span>•</span>
-          <span>META ADS</span>
-          <span>•</span>
-          <span>УБТ</span>
-          <span>•</span>
-          <span>НЕЙРОСЕТИ</span>
-          <span>•</span>
-          <span>VIBECODING</span>
-          <span>•</span>
-          <span>ТРАФИК</span>
-          <span>•</span>
-          <span>TIKTOK ADS</span>
-          <span>•</span>
-          <span>META ADS</span>
-          <span>•</span>
-          <span>УБТ</span>
-          <span>•</span>
-          <span>НЕЙРОСЕТИ</span>
-          <span>•</span>
-          <span>VIBECODING</span>
-          <span>•</span>
-          <span>ТРАФИК</span>
-          <span>•</span>
-          <span>TIKTOK ADS</span>
-          <span>•</span>
-          <span>META ADS</span>
-          <span>•</span>
-          <span>УБТ</span>
-          <span>•</span>
-          <span>НЕЙРОСЕТИ</span>
-          <span>•</span>
-          <span>VIBECODING</span>
-          <span>•</span>
-          <span>ТРАФИК</span>
-        </div>
-      </div>
-
       {/* Block 3: Accordion */}
       <motion.section 
         id="program" 
@@ -279,10 +228,26 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="pt-12 pb-16 md:pt-16 md:pb-24 px-6 max-w-3xl mx-auto"
+        className="pt-16 pb-16 md:pt-24 md:pb-24 w-full bg-[#F4F0E1] text-stone-900 relative z-10"
       >
-        <h2 className="text-3xl md:text-5xl font-bold mb-8 text-center">Что внутри?</h2>
-        <div className="space-y-2">
+        <div className="absolute top-0 left-0 w-full h-[30px] sm:h-[50px] md:h-[70px] -translate-y-full z-10 pointer-events-none">
+          <svg viewBox="0 0 1200 60" preserveAspectRatio="none" className="w-full h-full text-[#F4F0E1] block scale-y-[1.05] origin-bottom">
+            <path d="M0,60 L0,30 Q150,15 300,30 T600,30 Q750,15 900,30 T1200,30 L1200,60 Z" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="absolute bottom-0 left-0 w-full h-[30px] sm:h-[50px] md:h-[70px] translate-y-full z-10 pointer-events-none">
+          <svg viewBox="0 0 1200 60" preserveAspectRatio="none" className="w-full h-full text-[#F4F0E1] block scale-y-[1.05] origin-top">
+            <path d="M0,0 L1200,0 L1200,30 Q1050,45 900,30 T600,30 Q450,45 300,30 T0,30 Z" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="max-w-4xl mx-auto px-6 relative z-10">
+          <h2 
+            className="text-4xl md:text-6xl font-black mb-12 text-center tracking-tighter text-[#E95536]"
+            style={{ textShadow: "3px 3px 0px rgba(233, 85, 54, 0.15)" }}
+          >
+            Что внутри?
+          </h2>
+            <div className="space-y-4">
           <AccordionItem 
             title="Условно Бесплатный Трафик (УБТ)" 
             content={
@@ -330,6 +295,7 @@ export default function Home() {
             title="Гайды по поиску клиентов" 
             content="Где брать адекватных заказчиков на свой трафик. Показываю на своем примере как я ищу клиентов под залив на цены выше рыночных" 
           />
+            </div>
         </div>
       </motion.section>
 
@@ -342,9 +308,10 @@ export default function Home() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="pt-16 md:pt-24 pb-8 md:pb-12 bg-stone-900/50 relative"
       >
-        <GridBackground />
         <div className="max-w-6xl mx-auto px-6 relative z-10">
-          <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center">Кейсы участников</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-white">
+            Кейсы участников
+          </h2>
           <div className="overflow-hidden -mx-6 px-6" ref={casesEmblaRef}>
             <div className="flex -ml-6 cursor-grab active:cursor-grabbing touch-pan-y items-start">
               {/* Box 1 (Гоша) */}
@@ -354,19 +321,19 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                  className="bg-stone-800/60 hover:bg-stone-800/80 transition-colors border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 shrink-0 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">1</div>
+                    <div className="w-12 h-12 shrink-0 bg-[#E95536]/10 rounded-full flex items-center justify-center text-xl font-bold text-[#E95536]">1</div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-bold text-lg">Гоша</h3>
-                        <a href="https://t.me/fuckrood" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors pointer-events-auto">@fuckrood</a>
+                        <h3 className="font-bold text-lg text-stone-900">Гоша</h3>
+                        <a href="https://t.me/fuckrood" target="_blank" rel="noopener noreferrer" className="text-sm text-[#E95536] hover:text-[#CF3200] hover:underline transition-colors pointer-events-auto">@fuckrood</a>
                       </div>
-                      <p className="text-[#CF3200] font-medium">2к$ за 1 месяц</p>
+                      <p className="text-[#E95536] font-medium">2к$ за 1 месяц</p>
                     </div>
                   </div>
-                  <div className="text-stone-400 text-sm space-y-2">
+                  <div className="text-stone-600 text-sm space-y-2">
                     <p>Зашел в начале апреля. Начал лить платный трафик с TikTok ADS на телеграм бота, где ему платили 40р (0.5$ за подписчика)</p>
                   </div>
                   <div className="mt-4 pointer-events-auto">
@@ -386,18 +353,18 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-                  className="bg-stone-800/60 hover:bg-stone-800/80 transition-colors border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 shrink-0 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">2</div>
+                    <div className="w-12 h-12 shrink-0 bg-[#E95536]/10 rounded-full flex items-center justify-center text-xl font-bold text-[#E95536]">2</div>
                     <div className="min-w-0">
-                      <h3 className="font-bold text-lg">Максим</h3>
-                      <p className="text-[#CF3200] font-medium">1000$</p>
+                      <h3 className="font-bold text-lg text-stone-900">Максим</h3>
+                      <p className="text-[#E95536] font-medium">1000$</p>
                     </div>
                   </div>
-                  <div className="text-stone-400 text-sm space-y-2">
+                  <div className="text-stone-600 text-sm space-y-2">
                     <p>До этого он пытался лить TikTok ADS на оффер который у него уже был, но получалось не очень.</p>
-                    <p>После вступления в TRAFF буквально за 12 дней он заработал <strong className="text-white">80.000 рублей</strong> открутив всего 400$ на рекламу</p>
+                    <p>После вступления в TRAFF буквально за 12 дней он заработал <strong className="text-stone-900">80.000 рублей</strong> открутив всего 400$ на рекламу</p>
                   </div>
                   <div className="mt-4 pointer-events-auto">
                     <ImageCarousel images={[
@@ -416,31 +383,31 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                  className="bg-stone-800/60 hover:bg-stone-800/80 transition-colors border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 shrink-0 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">3</div>
+                    <div className="w-12 h-12 shrink-0 bg-[#E95536]/10 rounded-full flex items-center justify-center text-xl font-bold text-[#E95536]">3</div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-bold text-lg shrink-0">Артём</h3>
-                        <a href="https://t.me/xxxtimacion" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors pointer-events-auto truncate">@xxxtimacion</a>
+                        <h3 className="font-bold text-lg shrink-0 text-stone-900">Артём</h3>
+                        <a href="https://t.me/xxxtimacion" target="_blank" rel="noopener noreferrer" className="text-sm text-[#E95536] hover:text-[#CF3200] hover:underline transition-colors pointer-events-auto truncate">@xxxtimacion</a>
                       </div>
-                      <p className="text-[#CF3200] font-medium">800$ за 8 дней</p>
+                      <p className="text-[#E95536] font-medium">800$ за 8 дней</p>
                     </div>
                   </div>
-                  <div className="text-stone-400 text-sm space-y-2">
+                  <div className="text-stone-600 text-sm space-y-2">
                     <p>Никогда не занимался арбитражом трафика, и умел лишь базово монтировать видео</p>
                     <p>Сразу начал изучать TikTok ADS. Глянул видосы и просто повторил. За 2 дня он нашел эксперта, которому нужен был трафик и начал лить</p>
                     <div className="pt-1">
-                      <p><strong className="text-white">Итог:</strong></p>
+                      <p><strong className="text-stone-900">Итог:</strong></p>
                       <ul className="list-disc pl-4 mt-1 space-y-1">
-                        <li>Потрачено на рекламу: <strong className="text-white">300$</strong></li>
-                        <li>Перелил подписчиков: <strong className="text-white">1017 шт</strong></li>
-                        <li>Чистая прибыль: <strong className="text-white">815$</strong></li>
+                        <li>Потрачено на рекламу: <strong className="text-stone-900">300$</strong></li>
+                        <li>Перелил подписчиков: <strong className="text-stone-900">1017 шт</strong></li>
+                        <li>Чистая прибыль: <strong className="text-stone-900">815$</strong></li>
                       </ul>
                     </div>
                   </div>
-                  <div className="mt-4 rounded-lg overflow-hidden border border-white/5 pointer-events-auto bg-stone-900/50 p-2 flex items-center justify-center">
+                  <div className="mt-4 rounded-lg overflow-hidden border border-[#E95536]/10 pointer-events-auto bg-[#F4F0E1]/50 p-2 flex items-center justify-center">
                     <img src="https://i.ibb.co/tTRQm84z/Group-1000011021.png" alt="Group-1000011021" className="w-full max-h-[250px] object-contain rounded" referrerPolicy="no-referrer" />
                   </div>
                 </motion.div>
@@ -453,23 +420,23 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-                  className="bg-stone-800/60 hover:bg-stone-800/80 transition-colors border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 shrink-0 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">4</div>
+                    <div className="w-12 h-12 shrink-0 bg-[#E95536]/10 rounded-full flex items-center justify-center text-xl font-bold text-[#E95536]">4</div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-bold text-lg shrink-0">Алекс</h3>
-                        <a href="https://t.me/alexcryptooooo" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors pointer-events-auto truncate" title="@alexcryptooooo">@alexcrypto...</a>
+                        <h3 className="font-bold text-lg shrink-0 text-stone-900">Алекс</h3>
+                        <a href="https://t.me/alexcryptooooo" target="_blank" rel="noopener noreferrer" className="text-sm text-[#E95536] hover:text-[#CF3200] hover:underline transition-colors pointer-events-auto truncate" title="@alexcryptooooo">@alexcrypto...</a>
                       </div>
-                      <p className="text-[#CF3200] font-medium">87.000₽ за 10 дней</p>
+                      <p className="text-[#E95536] font-medium">87.000₽ за 10 дней</p>
                     </div>
                   </div>
-                  <div className="text-stone-400 text-sm space-y-2">
-                    <p>Алекс решил себя попробовать в <strong className="text-white">УБТ арбитраже</strong>. По гайдам сделал аккаунты с Инсте, Ютубе и ТикТоке, и начал заливать видео.</p>
-                    <p>За <strong className="text-white">10 дней</strong> он собрал в сумме примерно <strong className="text-white">400.000</strong> просмотров и перелил <strong className="text-white">1057</strong> заявок, за которые ему заплатили <strong className="text-white">1057$</strong></p>
+                  <div className="text-stone-600 text-sm space-y-2">
+                    <p>Алекс решил себя попробовать в <strong className="text-stone-900">УБТ арбитраже</strong>. По гайдам сделал аккаунты с Инсте, Ютубе и ТикТоке, и начал заливать видео.</p>
+                    <p>За <strong className="text-stone-900">10 дней</strong> он собрал в сумме примерно <strong className="text-stone-900">400.000</strong> просмотров и перелил <strong className="text-stone-900">1057</strong> заявок, за которые ему заплатили <strong className="text-stone-900">1057$</strong></p>
                   </div>
-                  <div className="mt-4 pointer-events-auto bg-stone-900/50 p-2 rounded-lg border border-white/5 flex items-center justify-center">
+                  <div className="mt-4 pointer-events-auto bg-[#F4F0E1]/50 p-2 rounded-lg border border-[#E95536]/10 flex items-center justify-center">
                     <img src="https://i.ibb.co/MkjbDJRb/image-71s8.png" alt="Результат Алекса" className="w-full max-h-[250px] object-contain rounded" referrerPolicy="no-referrer" />
                   </div>
                 </motion.div>
@@ -486,18 +453,34 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="pt-8 md:pt-12 pb-8 md:pb-12 px-6 max-w-3xl mx-auto"
+        className="pt-12 md:pt-20 pb-12 md:pb-20 w-full bg-[#F4F0E1] text-stone-900 relative z-10"
       >
-        <h2 className="text-3xl md:text-5xl font-bold mb-8 text-center">Частые вопросы</h2>
-        <div className="space-y-2">
+        <div className="absolute top-0 left-0 w-full h-[30px] sm:h-[50px] md:h-[70px] -translate-y-full z-10 pointer-events-none">
+          <svg viewBox="0 0 1200 60" preserveAspectRatio="none" className="w-full h-full text-[#F4F0E1] block scale-y-[1.05] origin-bottom">
+            <path d="M0,60 L0,30 Q150,15 300,30 T600,30 Q750,15 900,30 T1200,30 L1200,60 Z" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="absolute bottom-0 left-0 w-full h-[30px] sm:h-[50px] md:h-[70px] translate-y-full z-10 pointer-events-none">
+          <svg viewBox="0 0 1200 60" preserveAspectRatio="none" className="w-full h-full text-[#F4F0E1] block scale-y-[1.05] origin-top">
+            <path d="M0,0 L1200,0 L1200,30 Q1050,45 900,30 T600,30 Q450,45 300,30 T0,30 Z" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="max-w-4xl mx-auto px-6 relative z-10">
+          <h2 
+            className="text-4xl md:text-6xl font-black mb-12 text-center tracking-tighter text-[#E95536]"
+            style={{ textShadow: "3px 3px 0px rgba(233, 85, 54, 0.15)" }}
+          >
+            Частые вопросы
+          </h2>
+            <div className="space-y-4">
           <FaqItem 
             title="Кому подойдет TRAFF?" 
             content={
               <ul className="space-y-3">
-                <li><strong className="text-white">Новичкам</strong>, которые хотят уйти из найма и начать зарабатывать онлайн на арбитраже трафика</li>
-                <li><strong className="text-white">Арбитражникам</strong> для поиска новых источников трафика и масштабирования дохода</li>
-                <li><strong className="text-white">Владельцам каналов или экспертам</strong> для получения трафика сильно дешевле рыночного</li>
-                <li><strong className="text-white">Владельцам бизнесов</strong> для привлечения трафика на свои продукты</li>
+                <li><strong className="text-stone-900">Новичкам</strong>, которые хотят уйти из найма и начать зарабатывать онлайн на арбитраже трафика</li>
+                <li><strong className="text-stone-900">Арбитражникам</strong> для поиска новых источников трафика и масштабирования дохода</li>
+                <li><strong className="text-stone-900">Владельцам каналов или экспертам</strong> для получения трафика сильно дешевле рыночного</li>
+                <li><strong className="text-stone-900">Владельцам бизнесов</strong> для привлечения трафика на свои продукты</li>
               </ul>
             } 
           />
@@ -524,8 +507,9 @@ export default function Home() {
           />
           <FaqItem 
             title="Как долго у меня будет доступ к материалам?" 
-            content={<>Доступ к материалам, всем будущим обновлениям и моей личной поддержке предоставляется <strong className="text-white font-bold">НАВСЕГДА</strong></>} 
+            content={<>Доступ к материалам, всем будущим обновлениям и моей личной поддержке предоставляется <strong className="text-stone-900 font-bold">НАВСЕГДА</strong></>} 
           />
+            </div>
         </div>
       </motion.section>
 
@@ -536,55 +520,56 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="pt-8 pb-24 px-6 flex items-center justify-center min-h-[50vh] relative"
+        className="pt-12 pb-24 px-6 flex items-center justify-center min-h-[50vh] relative z-10"
       >
-        <GridBackground />
         <div className="text-center max-w-2xl w-full">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Доступ <span className="relative inline-block">
+          <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter text-white">
+            Доступ <span className="relative inline-block text-white">
               НАВСЕГДА
-              <svg className="absolute w-full h-3 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none">
-                <path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" />
+              <svg className="absolute w-full h-4 -bottom-2 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none">
+                <path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none" />
               </svg>
             </span>
           </h2>
-          <div className="mb-8 flex flex-col items-center justify-center">
-            <span className="text-7xl sm:text-8xl md:text-9xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400 leading-none px-2 py-2">139 $</span>
-            <span className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400 leading-none px-2 py-2 -mt-2">(9900 ₽)</span>
+          <div className="mb-10 flex flex-col items-center justify-center relative">
+            <span 
+              className="text-8xl sm:text-9xl md:text-[140px] font-black tracking-tighter text-white leading-none px-2 py-2"
+            >139 $</span>
+            <span className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-stone-200 to-stone-500 leading-none px-2 py-2 mt-2">(9900 ₽)</span>
           </div>
-          <div className="text-stone-400 text-lg md:text-xl mb-12 space-y-6">
+          <div className="text-[#A1A1AA] text-lg md:text-xl mb-12 space-y-6">
             <p>
-              <strong className="text-white font-medium">Залил 100 заявок - <span className="relative inline-block whitespace-nowrap">окупил обучение<svg className="absolute w-full h-2 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" /></svg></span>.</strong> По моим гайдам ребята делают этот объем за первые дни работы
+              <strong className="text-white font-bold tracking-wide">Залил 100 заявок - <span className="relative inline-block whitespace-nowrap text-white">окупил обучение<svg className="absolute w-full h-2 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" /></svg></span>.</strong> По моим гайдам ребята делают этот объем<br className="hidden md:block" /> за первые дни работы
             </p>
           </div>
           
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mb-12">
-            <a href="https://t.me/m/rtNyhVGXN2Ji" target="_blank" rel="noopener noreferrer" className="bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-8 rounded-md transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(207,50,0,0.4)] w-full sm:w-auto text-center flex flex-col items-center justify-center">
-              <span className="text-base font-bold uppercase tracking-wide">ОПЛАТИТЬ ПЕРЕВОДОМ</span>
-              <span className="text-xs text-white/80 mt-0.5 uppercase tracking-wide">(КАРТА И КРИПТА)</span>
+          <div className="flex flex-col gap-4 justify-center mb-12 max-w-[420px] mx-auto">
+            <a href="https://t.me/m/rtNyhVGXN2Ji" target="_blank" rel="noopener noreferrer" className="bg-[#CF3200] hover:bg-[#A62800] text-white py-4 px-8 rounded-lg transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(207,50,0,0.4)] w-full text-center flex flex-col items-center justify-center">
+              <span className="text-base sm:text-lg font-bold uppercase tracking-wide">ОПЛАТИТЬ ПЕРЕВОДОМ</span>
+              <span className="text-xs sm:text-sm font-semibold text-white/90 mt-0.5 uppercase tracking-wide">(КАРТА И КРИПТА)</span>
             </a>
-            <a href="https://t.me/tribute/app?startapp=sOS7" target="_blank" rel="noopener noreferrer" className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-md transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] w-full sm:w-auto text-center flex flex-col items-center justify-center">
-              <span className="text-base font-bold uppercase tracking-wide">ОПЛАТИТЬ ЧЕРЕЗ TRIBUTE</span>
-              <span className="text-xs text-white/80 mt-0.5 uppercase tracking-wide">(Любые карты)</span>
+            <a href="https://t.me/tribute/app?startapp=sOS7" target="_blank" rel="noopener noreferrer" className="bg-[#3B82F6] hover:bg-[#2563EB] text-white py-4 px-8 rounded-lg transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] w-full text-center flex flex-col items-center justify-center">
+              <span className="text-base sm:text-lg font-bold uppercase tracking-wide">ОПЛАТИТЬ ЧЕРЕЗ TRIBUTE</span>
+              <span className="text-xs sm:text-sm font-semibold text-white/90 mt-0.5 uppercase tracking-wide">(ЛЮБЫЕ КАРТЫ)</span>
             </a>
           </div>
 
-          <div className="text-stone-400 text-lg flex flex-col items-center justify-center space-y-6 mt-6">
-            <p className="text-white font-normal text-2xl md:text-3xl text-center">
-              Вступай в <strong className="font-bold">TRAFF</strong> и сделай<br />свои <strong className="font-bold">первые <span className="relative inline-block whitespace-nowrap">2-3к$<svg className="absolute w-full h-2 -bottom-2 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" /></svg></span></strong>
+          <div className="text-stone-300 text-lg flex flex-col items-center justify-center space-y-6 mt-16 px-4">
+            <p className="text-white font-bold text-2xl sm:text-3xl md:text-5xl text-center leading-tight max-w-[320px] sm:max-w-xl md:max-w-2xl mx-auto">
+              Вступай в <strong className="font-black text-[#CF3200]">TRAFF</strong> и сделай свои <strong className="font-black text-white relative inline-block whitespace-nowrap">первые 2-3к$<svg className="absolute w-full h-2 sm:h-3 -bottom-1 sm:-bottom-2 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none" /></svg></strong>
             </p>
 
-            <div className="relative inline-block px-4 py-3 my-4 text-center">
+            <div className="relative inline-block px-6 py-4 my-4 text-center mt-8">
               {/* Left Bracket */}
-              <svg className="absolute left-0 top-0 h-full w-4 sm:w-5 overflow-visible" viewBox="0 0 20 100" preserveAspectRatio="none" fill="none">
-                <path d="M 17 4 C 7 4 5 9 4 19 C 2 49 3 79 5 89 C 6 95 9 94 17 94" stroke="#CF3200" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+              <svg className="absolute left-0 top-0 h-full w-5 sm:w-6 overflow-visible" viewBox="0 0 20 100" preserveAspectRatio="none" fill="none">
+                <path d="M 17 4 C 7 4 5 9 4 19 C 2 49 3 79 5 89 C 6 95 9 94 17 94" stroke="#CF3200" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
               </svg>
               {/* Right Bracket */}
-              <svg className="absolute right-0 top-0 h-full w-4 sm:w-5 overflow-visible" viewBox="0 0 20 100" preserveAspectRatio="none" fill="none">
-                <path d="M 3 4 C 13 4 15 9 16 19 C 18 49 17 79 15 89 C 14 95 11 94 3 94" stroke="#CF3200" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+              <svg className="absolute right-0 top-0 h-full w-5 sm:w-6 overflow-visible" viewBox="0 0 20 100" preserveAspectRatio="none" fill="none">
+                <path d="M 3 4 C 13 4 15 9 16 19 C 18 49 17 79 15 89 C 14 95 11 94 3 94" stroke="#CF3200" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
               </svg>
-              <p className="relative z-10 m-0">
-                Если остались вопросы, пиши мне - <a href="https://t.me/xxxdimacion" target="_blank" rel="noopener noreferrer" className="text-[#CF3200] hover:underline whitespace-nowrap">@xxxdimacion</a>
+              <p className="relative z-10 m-0 font-medium text-xl">
+                Если остались вопросы, пиши мне - <a href="https://t.me/xxxdimacion" target="_blank" rel="noopener noreferrer" className="text-[#CF3200] hover:text-[#A62800] font-bold hover:underline whitespace-nowrap transition-colors">@xxxdimacion</a>
               </p>
             </div>
           </div>
@@ -592,15 +577,15 @@ export default function Home() {
       </motion.section>
 
       {/* Block 5: Footer */}
-      <footer className="py-8 px-6 border-t border-white/10 bg-stone-900">
+      <footer className="py-8 px-6 border-t border-white/10 bg-stone-900 mt-auto relative z-10">
         <div className="max-w-6xl mx-auto flex flex-col items-center justify-center gap-4">
-          <img src="https://i.ibb.co/pv9d1XcC/Frame-43159.png" alt="TRAFF" className="h-8" referrerPolicy="no-referrer" />
-          <div className="flex flex-col sm:flex-row gap-4 text-stone-500 text-sm text-center">
+          <img src="https://i.ibb.co/pv9d1XcC/Frame-43159.png" alt="TRAFF" className="h-10" referrerPolicy="no-referrer" />
+          <div className="flex flex-col sm:flex-row gap-6 text-stone-500 text-sm font-medium text-center">
             <Link to="/disclaimer" className="hover:text-white transition-colors">Дисклеймер</Link>
             <Link to="/offer" className="hover:text-white transition-colors">Договор оферты</Link>
             <Link to="/privacy" className="hover:text-white transition-colors">Политика конфиденциальности</Link>
           </div>
-          <p className="text-[10px] text-stone-600 max-w-2xl text-center leading-tight">
+          <p className="text-xs text-stone-600 max-w-2xl text-center leading-relaxed">
             * Meta Platforms Inc. (владелец Facebook и Instagram) признана экстремистской организацией, её деятельность запрещена на территории Российской Федерации.
           </p>
         </div>
@@ -613,18 +598,18 @@ function AccordionItem({ title, content }: { title: string, content: React.React
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-white/10">
+    <div className="border-[#E95536]/20 bg-white/60 backdrop-blur-sm rounded-2xl mb-4 shadow-sm border overflow-hidden">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-8 flex justify-between items-center text-left focus:outline-none group cursor-pointer"
+        className="w-full py-6 px-6 flex justify-between items-center text-left focus:outline-none group cursor-pointer hover:bg-white/90 transition-colors"
       >
-        <span className="text-xl md:text-2xl font-medium group-hover:text-[#CF3200] transition-colors">{title}</span>
-        <ChevronDown className={`w-6 h-6 text-gray-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+        <span className="text-xl md:text-2xl font-bold text-stone-800 group-hover:text-[#E95536] transition-colors">{title}</span>
+        <ChevronDown className={`w-8 h-8 text-[#E95536]/50 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       <div 
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[2000px] opacity-100 pb-8' : 'max-h-0 opacity-0'}`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[2000px] opacity-100 px-6 pb-8' : 'max-h-0 opacity-0 px-6'}`}
       >
-        <div className="text-stone-400 text-lg leading-relaxed">{content}</div>
+        <div className="text-stone-600 text-lg md:text-xl font-medium leading-relaxed pt-2 border-t border-[#E95536]/10">{content}</div>
       </div>
     </div>
   );
@@ -634,76 +619,19 @@ function FaqItem({ title, content }: { title: string, content: React.ReactNode }
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-white/10">
+    <div className="border-[#E95536]/20 bg-white/60 backdrop-blur-sm rounded-2xl mb-4 shadow-sm border overflow-hidden">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 flex justify-between items-center text-left focus:outline-none group cursor-pointer"
+        className="w-full py-5 px-6 flex justify-between items-center text-left focus:outline-none group cursor-pointer hover:bg-white/90 transition-colors"
       >
-        <span className="text-lg md:text-xl font-medium group-hover:text-[#CF3200] transition-colors">{title}</span>
-        <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+        <span className="text-lg md:text-xl font-bold text-stone-800 group-hover:text-[#E95536] transition-colors pr-4 leading-snug">{title}</span>
+        <ChevronDown className={`w-6 h-6 text-[#E95536]/50 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       <div 
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[1000px] opacity-100 pb-6' : 'max-h-0 opacity-0'}`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[1000px] opacity-100 px-6 pb-6' : 'max-h-0 opacity-0 px-6'}`}
       >
-        <div className="text-stone-400 text-base leading-relaxed">{content}</div>
+        <div className="text-stone-600 text-base md:text-lg font-medium leading-relaxed pt-3 border-t border-[#E95536]/10">{content}</div>
       </div>
     </div>
-  );
-}
-
-function SectionDivider() {
-  return (
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.95, filter: 'blur(5px)' }}
-      whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="w-full h-32 relative flex items-center justify-center overflow-hidden"
-    >
-      <div className="absolute inset-0 [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
-        <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_50%,transparent)]">
-          <svg aria-hidden="true" className="absolute inset-0 h-full w-full stroke-white/5">
-            <defs>
-              <pattern id="divider-grid" width="32" height="32" patternUnits="userSpaceOnUse">
-                <path d="M.5 32V.5H32" fill="none" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" strokeWidth="0" fill="url(#divider-grid)" />
-          </svg>
-        </div>
-      </div>
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-[#CF3200]/50 to-transparent"></div>
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-16 bg-[#CF3200]/10 blur-3xl rounded-full pointer-events-none"></div>
-    </motion.div>
-  );
-}
-
-function GridBackground({ className = "[mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" }: { className?: string }) {
-  const patternId = useId();
-  return (
-    <svg
-      aria-hidden="true"
-      className={`absolute inset-0 -z-10 h-full w-full stroke-white/10 ${className}`}
-    >
-      <defs>
-        <pattern
-          x="50%"
-          y="0"
-          id={patternId}
-          width="200"
-          height="200"
-          patternUnits="userSpaceOnUse"
-        >
-          <path d="M.5 200V.5H200" fill="none" />
-        </pattern>
-      </defs>
-      <svg x="50%" y="0" className="overflow-visible fill-stone-800/20">
-        <path
-          d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
-          strokeWidth="0"
-        />
-      </svg>
-      <rect fill={`url(#${patternId})`} width="100%" height="100%" strokeWidth="0" />
-    </svg>
   );
 }
