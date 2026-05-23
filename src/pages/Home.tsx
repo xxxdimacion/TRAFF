@@ -25,15 +25,15 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
   }, [emblaApi, onSelect]);
 
   return (
-    <div className="relative w-full overflow-hidden rounded-lg border border-white/5 group">
+    <div className="relative w-full overflow-hidden rounded-lg border border-white/5 bg-stone-900/50 group">
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex">
+        <div className="flex items-center">
           {images.map((src, idx) => (
-            <div className="flex-[0_0_100%] min-w-0" key={idx}>
+            <div className="flex-[0_0_100%] min-w-0 p-2 flex items-center justify-center" key={idx}>
               <img 
                 src={src} 
                 alt={`Slide ${idx + 1}`} 
-                className="w-full h-auto object-cover pointer-events-none" 
+                className="w-full max-h-[250px] object-contain rounded pointer-events-none" 
                 referrerPolicy="no-referrer" 
                 draggable="false"
               />
@@ -64,6 +64,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [casesEmblaRef] = useEmblaCarousel({ align: 'start', dragFree: true });
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, id: string) => {
     e.preventDefault();
@@ -327,7 +328,7 @@ export default function Home() {
           />
           <AccordionItem 
             title="Гайды по поиску клиентов" 
-            content="Где брать адекватных заказчиков на свой трафик. Даю простые скрипты общения: что и кому писать, чтобы люди хотели с тобой работать и платили нормальные деньги без долгих уговоров" 
+            content="Где брать адекватных заказчиков на свой трафик. Показываю на своем примере как я ищу клиентов под залив на цены выше рыночных" 
           />
         </div>
       </motion.section>
@@ -339,96 +340,141 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="py-16 md:py-24 bg-stone-900/50 relative"
+        className="pt-16 md:pt-24 pb-8 md:pb-12 bg-stone-900/50 relative"
       >
         <GridBackground />
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center">Кейсы участников</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <motion.div 
-              initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-              className="bg-stone-800/30 border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">1</div>
-                <div>
-                  <h3 className="font-bold text-lg">Максим</h3>
-                  <p className="text-[#CF3200] font-medium">1000$ и ROI 220%</p>
-                </div>
-              </div>
-              <div className="text-stone-400 text-sm space-y-2">
-                <p>До этого он пытался лить TikTok ADS на оффер который у него уже был, но получалось не очень.</p>
-                <p>После вступления в TRAFF буквально за 12 дней он заработал <strong className="text-white">80.000 рублей</strong> открутив всего 400$ на рекламу</p>
-              </div>
-              <div className="mt-auto">
-                <ImageCarousel images={[
-                  "https://i.ibb.co/1f0vBJj9/Frame-43160.png",
-                  "https://i.ibb.co/7dc5RWmq/Gemini-Generated-Image-ao8s30ao8s30ao8s.png",
-                  "https://i.ibb.co/P8z1JbR/Frame-43162.png"
-                ]} />
-              </div>
-            </motion.div>
-            <motion.div 
-              initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="bg-stone-800/30 border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">2</div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-bold text-lg">Артём</h3>
-                    <a href="https://t.me/xxxtimacion" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors">@xxxtimacion</a>
+          <div className="overflow-hidden -mx-6 px-6" ref={casesEmblaRef}>
+            <div className="flex -ml-6 cursor-grab active:cursor-grabbing touch-pan-y items-start">
+              {/* Box 1 (Гоша) */}
+              <div className="flex-[0_0_90%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] min-w-0 pl-6 pb-6 select-none">
+                <motion.div 
+                  initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
+                  whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+                  className="bg-stone-800/60 hover:bg-stone-800/80 transition-colors border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 shrink-0 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">1</div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-lg">Гоша</h3>
+                        <a href="https://t.me/fuckrood" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors pointer-events-auto">@fuckrood</a>
+                      </div>
+                      <p className="text-[#CF3200] font-medium">2к$ за 1 месяц</p>
+                    </div>
                   </div>
-                  <p className="text-[#CF3200] font-medium">800$ за 8 дней</p>
-                </div>
-              </div>
-              <div className="text-stone-400 text-sm space-y-2">
-                <p>Никогда не занимался арбитражом трафика, и умел лишь базово монтировать видео</p>
-                <p>Сразу начал изучать TikTok ADS. Глянул видосы и просто повторил. За 2 дня он нашел эксперта, которому нужен был трафик и начал лить</p>
-                <div className="pt-1">
-                  <p><strong className="text-white">Итог:</strong></p>
-                  <ul className="list-disc pl-4 mt-1 space-y-1">
-                    <li>Потрачено на рекламу: <strong className="text-white">300$</strong></li>
-                    <li>Перелил подписчиков: <strong className="text-white">1017 шт</strong></li>
-                    <li>Чистая прибыль: <strong className="text-white">815$</strong></li>
-                  </ul>
-                </div>
-              </div>
-              <div className="mt-auto rounded-lg overflow-hidden border border-white/5">
-                <img src="https://i.ibb.co/tTRQm84z/Group-1000011021.png" alt="Group-1000011021" className="w-full h-auto" referrerPolicy="no-referrer" />
-              </div>
-            </motion.div>
-            <motion.div 
-              initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-              className="bg-stone-800/30 border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">3</div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-bold text-lg">Алекс</h3>
-                    <a href="https://t.me/alexcryptooooo" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors">@alexcryptooooo</a>
+                  <div className="text-stone-400 text-sm space-y-2">
+                    <p>Зашел в начале апреля. Начал лить платный трафик с TikTok ADS на телеграм бота, где ему платили 40р (0.5$ за подписчика)</p>
                   </div>
-                  <p className="text-[#CF3200] font-medium">87.000₽ за 10 дней</p>
-                </div>
+                  <div className="mt-4 pointer-events-auto">
+                    <ImageCarousel images={[
+                      "https://i.ibb.co/d0P4Ck7F/photo-2026-04-12-23-32-13.jpg",
+                      "https://i.ibb.co/4wsqnwbm/photo-2026-04-12-23-31-59.jpg",
+                      "https://i.ibb.co/67PqZdwq/photo-2026-04-12-23-35-37.jpg"
+                    ]} />
+                  </div>
+                </motion.div>
               </div>
-              <div className="text-stone-400 text-sm space-y-2">
-                <p>Алекс решил себя попробовать в <strong className="text-white">УБТ арбитраже</strong>. По гайдам сделал аккаунты с Инсте, Ютубе и ТикТоке, и начал заливать видео.</p>
-                <p>За <strong className="text-white">10 дней</strong> он собрал в сумме примерно <strong className="text-white">400.000</strong> просмотров и перелил <strong className="text-white">1057</strong> заявок, за которые ему заплатили <strong className="text-white">1057$</strong></p>
+
+              {/* Box 2 (Максим) */}
+              <div className="flex-[0_0_90%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] min-w-0 pl-6 pb-6 select-none">
+                <motion.div 
+                  initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
+                  whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                  className="bg-stone-800/60 hover:bg-stone-800/80 transition-colors border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 shrink-0 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">2</div>
+                    <div className="min-w-0">
+                      <h3 className="font-bold text-lg">Максим</h3>
+                      <p className="text-[#CF3200] font-medium">1000$</p>
+                    </div>
+                  </div>
+                  <div className="text-stone-400 text-sm space-y-2">
+                    <p>До этого он пытался лить TikTok ADS на оффер который у него уже был, но получалось не очень.</p>
+                    <p>После вступления в TRAFF буквально за 12 дней он заработал <strong className="text-white">80.000 рублей</strong> открутив всего 400$ на рекламу</p>
+                  </div>
+                  <div className="mt-4 pointer-events-auto">
+                    <ImageCarousel images={[
+                      "https://i.ibb.co/1f0vBJj9/Frame-43160.png",
+                      "https://i.ibb.co/7dc5RWmq/Gemini-Generated-Image-ao8s30ao8s30ao8s.png",
+                      "https://i.ibb.co/P8z1JbR/Frame-43162.png"
+                    ]} />
+                  </div>
+                </motion.div>
               </div>
-              <div className="mt-auto">
-                <img src="https://i.ibb.co/MkjbDJRb/image-71s8.png" alt="Результат Алекса" className="w-full h-auto rounded-lg border border-white/5" referrerPolicy="no-referrer" />
+
+              {/* Box 3 (Артём) */}
+              <div className="flex-[0_0_90%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] min-w-0 pl-6 pb-6 select-none">
+                <motion.div 
+                  initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
+                  whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+                  className="bg-stone-800/60 hover:bg-stone-800/80 transition-colors border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 shrink-0 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">3</div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-lg shrink-0">Артём</h3>
+                        <a href="https://t.me/xxxtimacion" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors pointer-events-auto truncate">@xxxtimacion</a>
+                      </div>
+                      <p className="text-[#CF3200] font-medium">800$ за 8 дней</p>
+                    </div>
+                  </div>
+                  <div className="text-stone-400 text-sm space-y-2">
+                    <p>Никогда не занимался арбитражом трафика, и умел лишь базово монтировать видео</p>
+                    <p>Сразу начал изучать TikTok ADS. Глянул видосы и просто повторил. За 2 дня он нашел эксперта, которому нужен был трафик и начал лить</p>
+                    <div className="pt-1">
+                      <p><strong className="text-white">Итог:</strong></p>
+                      <ul className="list-disc pl-4 mt-1 space-y-1">
+                        <li>Потрачено на рекламу: <strong className="text-white">300$</strong></li>
+                        <li>Перелил подписчиков: <strong className="text-white">1017 шт</strong></li>
+                        <li>Чистая прибыль: <strong className="text-white">815$</strong></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-4 rounded-lg overflow-hidden border border-white/5 pointer-events-auto bg-stone-900/50 p-2 flex items-center justify-center">
+                    <img src="https://i.ibb.co/tTRQm84z/Group-1000011021.png" alt="Group-1000011021" className="w-full max-h-[250px] object-contain rounded" referrerPolicy="no-referrer" />
+                  </div>
+                </motion.div>
               </div>
-            </motion.div>
+
+              {/* Box 4 (Алекс) */}
+              <div className="flex-[0_0_90%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] min-w-0 pl-6 pb-6 select-none">
+                <motion.div 
+                  initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
+                  whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+                  className="bg-stone-800/60 hover:bg-stone-800/80 transition-colors border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 shrink-0 bg-stone-700 rounded-full flex items-center justify-center text-xl font-bold">4</div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-lg shrink-0">Алекс</h3>
+                        <a href="https://t.me/alexcryptooooo" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 hover:underline transition-colors pointer-events-auto truncate" title="@alexcryptooooo">@alexcrypto...</a>
+                      </div>
+                      <p className="text-[#CF3200] font-medium">87.000₽ за 10 дней</p>
+                    </div>
+                  </div>
+                  <div className="text-stone-400 text-sm space-y-2">
+                    <p>Алекс решил себя попробовать в <strong className="text-white">УБТ арбитраже</strong>. По гайдам сделал аккаунты с Инсте, Ютубе и ТикТоке, и начал заливать видео.</p>
+                    <p>За <strong className="text-white">10 дней</strong> он собрал в сумме примерно <strong className="text-white">400.000</strong> просмотров и перелил <strong className="text-white">1057</strong> заявок, за которые ему заплатили <strong className="text-white">1057$</strong></p>
+                  </div>
+                  <div className="mt-4 pointer-events-auto bg-stone-900/50 p-2 rounded-lg border border-white/5 flex items-center justify-center">
+                    <img src="https://i.ibb.co/MkjbDJRb/image-71s8.png" alt="Результат Алекса" className="w-full max-h-[250px] object-contain rounded" referrerPolicy="no-referrer" />
+                  </div>
+                </motion.div>
+              </div>
+            </div>
           </div>
         </div>
       </motion.section>
@@ -440,7 +486,7 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="py-16 md:py-24 px-6 max-w-3xl mx-auto"
+        className="pt-8 md:pt-12 pb-8 md:pb-12 px-6 max-w-3xl mx-auto"
       >
         <h2 className="text-3xl md:text-5xl font-bold mb-8 text-center">Частые вопросы</h2>
         <div className="space-y-2">
@@ -456,11 +502,10 @@ export default function Home() {
             } 
           />
           <FaqItem 
-            title="Я из РФ/РБ. Смогу ли я лить трафик?" 
+            title="Я из РФ/РБ/КЗ. Смогу ли я лить трафик?" 
             content={
               <div className="space-y-3">
-                <p>Конечно! И это наше главное преимущество. То, что TikTok и Meta отключили для РФ/РБ - нам только на руку, потому что на рынке осталось меньше конкурентов</p>
-                <p>В Академии есть отдельный подробный блок по обходу всех ограничений. От прокси и антидетект браузеров до виртуальных карт</p>
+                <p>Конечно! В Академии есть отдельный подробный блок по обходу всех ограничений. От прокси и антидетект браузеров до виртуальных карт</p>
                 <p>Никаких границ нет, мы спокойно работаем на весь мир</p>
               </div>
             } 
@@ -491,7 +536,7 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="py-24 px-6 flex items-center justify-center min-h-[80vh] relative"
+        className="pt-8 pb-24 px-6 flex items-center justify-center min-h-[50vh] relative"
       >
         <GridBackground />
         <div className="text-center max-w-2xl w-full">
@@ -504,14 +549,32 @@ export default function Home() {
             </span>
           </h2>
           <div className="mb-8 flex flex-col items-center justify-center">
-            <span className="text-7xl sm:text-8xl md:text-9xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400 leading-none px-2 py-2">120 $</span>
+            <span className="text-7xl sm:text-8xl md:text-9xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400 leading-none px-2 py-2">139 $</span>
             <span className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400 leading-none px-2 py-2 -mt-2">(9900 ₽)</span>
           </div>
           <div className="text-stone-400 text-lg md:text-xl mb-12 space-y-6">
             <p>
               <strong className="text-white font-medium">Залил 100 заявок - <span className="relative inline-block whitespace-nowrap">окупил обучение<svg className="absolute w-full h-2 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" /></svg></span>.</strong> По моим гайдам ребята делают этот объем за первые дни работы
             </p>
-            <div className="relative inline-block px-3 sm:px-4 py-3 my-4">
+          </div>
+          
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mb-12">
+            <a href="https://t.me/m/rtNyhVGXN2Ji" target="_blank" rel="noopener noreferrer" className="bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-8 rounded-md transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(207,50,0,0.4)] w-full sm:w-auto text-center flex flex-col items-center justify-center">
+              <span className="text-base font-bold uppercase tracking-wide">ОПЛАТИТЬ ПЕРЕВОДОМ</span>
+              <span className="text-xs text-white/80 mt-0.5 uppercase tracking-wide">(КАРТА И КРИПТА)</span>
+            </a>
+            <a href="https://t.me/tribute/app?startapp=sOS7" target="_blank" rel="noopener noreferrer" className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-md transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] w-full sm:w-auto text-center flex flex-col items-center justify-center">
+              <span className="text-base font-bold uppercase tracking-wide">ОПЛАТИТЬ ЧЕРЕЗ TRIBUTE</span>
+              <span className="text-xs text-white/80 mt-0.5 uppercase tracking-wide">(Любые карты)</span>
+            </a>
+          </div>
+
+          <div className="text-stone-400 text-lg flex flex-col items-center justify-center space-y-6 mt-6">
+            <p className="text-white font-normal text-2xl md:text-3xl text-center">
+              Вступай в <strong className="font-bold">TRAFF</strong> и сделай<br />свои <strong className="font-bold">первые <span className="relative inline-block whitespace-nowrap">2-3к$<svg className="absolute w-full h-2 -bottom-2 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" /></svg></span></strong>
+            </p>
+
+            <div className="relative inline-block px-4 py-3 my-4 text-center">
               {/* Left Bracket */}
               <svg className="absolute left-0 top-0 h-full w-4 sm:w-5 overflow-visible" viewBox="0 0 20 100" preserveAspectRatio="none" fill="none">
                 <path d="M 17 4 C 7 4 5 9 4 19 C 2 49 3 79 5 89 C 6 95 9 94 17 94" stroke="#CF3200" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
@@ -521,23 +584,9 @@ export default function Home() {
                 <path d="M 3 4 C 13 4 15 9 16 19 C 18 49 17 79 15 89 C 14 95 11 94 3 94" stroke="#CF3200" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
               </svg>
               <p className="relative z-10 m-0">
-                Если остались вопросы, пиши мне - <a href="https://t.me/xxxdimacion" target="_blank" rel="noopener noreferrer" className="text-[#CF3200] hover:underline">@xxxdimacion</a>
+                Если остались вопросы, пиши мне - <a href="https://t.me/xxxdimacion" target="_blank" rel="noopener noreferrer" className="text-[#CF3200] hover:underline whitespace-nowrap">@xxxdimacion</a>
               </p>
             </div>
-            <p className="text-white font-normal text-xl md:text-2xl pt-6">
-              Вступай в <strong className="font-bold">TRAFF</strong> и начни зарабатывать свои <strong className="font-bold">первые <span className="relative inline-block whitespace-nowrap">100-200к₽<svg className="absolute w-full h-2 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" /></svg></span></strong>
-            </p>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
-            <a href="https://t.me/m/rtNyhVGXN2Ji" target="_blank" rel="noopener noreferrer" className="bg-[#CF3200] hover:bg-[#A62800] text-white font-medium py-3 px-8 rounded-md transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(207,50,0,0.4)] w-full sm:w-auto text-center flex flex-col items-center justify-center">
-              <span className="text-base font-bold uppercase tracking-wide">ОПЛАТИТЬ ПЕРЕВОДОМ</span>
-              <span className="text-xs text-white/80 mt-0.5 uppercase tracking-wide">(КАРТА И КРИПТА)</span>
-            </a>
-            <a href="https://t.me/tribute/app?startapp=sOS7" target="_blank" rel="noopener noreferrer" className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-md transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] w-full sm:w-auto text-center flex flex-col items-center justify-center">
-              <span className="text-base font-bold uppercase tracking-wide">ОПЛАТИТЬ ЧЕРЕЗ TRIBUTE</span>
-              <span className="text-xs text-white/80 mt-0.5 uppercase tracking-wide">(Любые карты)</span>
-            </a>
           </div>
         </div>
       </motion.section>
