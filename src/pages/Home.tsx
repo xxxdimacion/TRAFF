@@ -25,15 +25,21 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
   }, [emblaApi, onSelect]);
 
   return (
-    <div className="relative w-full overflow-hidden rounded-lg border border-stone-200 bg-stone-100 group">
+    <div 
+      className="relative w-full overflow-hidden rounded-lg group"
+      onTouchStart={e => e.stopPropagation()}
+      onTouchMove={e => e.stopPropagation()}
+      onTouchEnd={e => e.stopPropagation()}
+      onMouseDown={e => e.stopPropagation()}
+    >
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex items-center">
           {images.map((src, idx) => (
-            <div className="flex-[0_0_100%] min-w-0 p-2 flex items-center justify-center" key={idx}>
+            <div className="flex-[0_0_100%] min-w-0 flex items-center justify-center" key={idx}>
               <img 
                 src={src} 
                 alt={`Slide ${idx + 1}`} 
-                className="w-full max-h-[250px] object-contain rounded pointer-events-none" 
+                className="w-full max-h-[350px] object-contain rounded-lg pointer-events-none" 
                 referrerPolicy="no-referrer" 
                 draggable="false"
               />
@@ -155,7 +161,7 @@ export default function Home() {
       {/* Block 1: Hero Section */}
       <section 
         id="hero" 
-        className="relative pt-32 pb-24 sm:pt-40 sm:pb-32 min-h-screen flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto"
+        className="relative pt-32 pb-16 sm:pt-40 sm:pb-20 min-h-[90vh] flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto"
       >
         <motion.div
           initial={{ opacity: 0, y: 150, filter: 'blur(10px)' }}
@@ -180,7 +186,7 @@ export default function Home() {
           </p>
         </motion.div>
         
-        <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center mt-8">
+        <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center mt-6">
           <motion.div 
             initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -217,7 +223,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             onClick={(e) => scrollToSection(e, 'checkout')} 
-            className="mt-24 sm:mt-36 bg-[#CF3200] hover:bg-[#A62800] text-white font-bold py-4 px-10 sm:px-16 rounded-md text-lg sm:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(207,50,0,0.5)] uppercase tracking-wide w-full sm:w-auto"
+            className="mt-12 sm:mt-16 bg-[#CF3200] hover:bg-[#A62800] text-white font-bold py-4 px-10 sm:px-16 rounded-md text-lg sm:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(207,50,0,0.5)] uppercase tracking-wide w-full sm:w-auto"
           >
             ВСТУПИТЬ В TRAFF
           </motion.button>
@@ -288,7 +294,7 @@ export default function Home() {
           />
           <AccordionItem 
             title="Гайды по Вайбкодингу" 
-            content="Делаем сайты, Telegram-ботов и даже мини-игры вообще без навыков программирования" 
+            content="Делаем сайты и лендинги под продажу клиентам либо для собственного залива. Кстати этот сайт также я сделал через вайбкодинг (нейросети)" 
           />
           <AccordionItem 
             title="Гайды по Нейроконтенту" 
@@ -316,10 +322,10 @@ export default function Home() {
             className="text-4xl md:text-6xl font-black mb-12 text-center tracking-tighter text-white"
             style={{ textShadow: "3px 3px 0px rgba(255, 255, 255, 0.15)" }}
           >
-            Кейсы участников
+            Кейсы <br className="sm:hidden" />участников
           </h2>
           <div className="overflow-hidden -mx-6 px-6" ref={casesEmblaRef}>
-            <div className="flex -ml-6 cursor-grab active:cursor-grabbing touch-pan-y items-start">
+            <div className="flex -ml-6 cursor-grab active:cursor-grabbing touch-pan-y items-stretch">
               {/* Box 1 (Гоша) */}
               <div className="flex-[0_0_90%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] min-w-0 pl-6 pb-6 select-none">
                 <motion.div 
@@ -327,7 +333,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4 h-full"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 shrink-0 bg-[#E95536]/10 rounded-full flex items-center justify-center text-xl font-bold text-[#E95536]">1</div>
@@ -359,7 +365,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4 h-full"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 shrink-0 bg-[#E95536]/10 rounded-full flex items-center justify-center text-xl font-bold text-[#E95536]">2</div>
@@ -389,7 +395,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4 h-full"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 shrink-0 bg-[#E95536]/10 rounded-full flex items-center justify-center text-xl font-bold text-[#E95536]">3</div>
@@ -413,8 +419,8 @@ export default function Home() {
                       </ul>
                     </div>
                   </div>
-                  <div className="mt-4 rounded-lg overflow-hidden border border-[#E95536]/10 pointer-events-auto bg-[#F4F0E1]/50 p-2 flex items-center justify-center">
-                    <img src="https://i.ibb.co/tTRQm84z/Group-1000011021.png" alt="Group-1000011021" className="w-full max-h-[250px] object-contain rounded" referrerPolicy="no-referrer" />
+                  <div className="mt-4 pointer-events-auto flex justify-center">
+                    <img src="https://i.ibb.co/tTRQm84z/Group-1000011021.png" alt="Group-1000011021" className="w-full max-h-[350px] object-contain rounded-lg" referrerPolicy="no-referrer" />
                   </div>
                 </motion.div>
               </div>
@@ -426,7 +432,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-[#F4F0E1] hover:bg-white transition-colors border border-stone-200 shadow-xl rounded-2xl p-6 flex flex-col gap-4 h-full"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 shrink-0 bg-[#E95536]/10 rounded-full flex items-center justify-center text-xl font-bold text-[#E95536]">4</div>
@@ -442,8 +448,8 @@ export default function Home() {
                     <p>Алекс решил себя попробовать в <strong className="text-stone-900">УБТ арбитраже</strong>. По гайдам сделал аккаунты с Инсте, Ютубе и ТикТоке, и начал заливать видео.</p>
                     <p>За <strong className="text-stone-900">10 дней</strong> он собрал в сумме примерно <strong className="text-stone-900">400.000</strong> просмотров и перелил <strong className="text-stone-900">1057</strong> заявок, за которые ему заплатили <strong className="text-stone-900">1057$</strong></p>
                   </div>
-                  <div className="mt-4 pointer-events-auto bg-[#F4F0E1]/50 p-2 rounded-lg border border-[#E95536]/10 flex items-center justify-center">
-                    <img src="https://i.ibb.co/MkjbDJRb/image-71s8.png" alt="Результат Алекса" className="w-full max-h-[250px] object-contain rounded" referrerPolicy="no-referrer" />
+                  <div className="mt-4 pointer-events-auto flex justify-center">
+                    <img src="https://i.ibb.co/MkjbDJRb/image-71s8.png" alt="Результат Алекса" className="w-full max-h-[350px] object-contain rounded-lg" referrerPolicy="no-referrer" />
                   </div>
                 </motion.div>
               </div>
@@ -543,9 +549,11 @@ export default function Home() {
             >139 $</span>
             <span className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-stone-200 to-stone-500 leading-none px-2 py-2 mt-2">(9900 ₽)</span>
           </div>
-          <div className="text-[#A1A1AA] text-lg md:text-xl mb-12 space-y-6">
+          <div className="text-[#A1A1AA] text-lg md:text-xl mb-8 flex flex-col items-center justify-center gap-2 text-center">
             <p>
-              <strong className="text-white font-bold tracking-wide">Залил 100 заявок - <span className="relative inline-block whitespace-nowrap text-white">окупил обучение<svg className="absolute w-full h-2 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" /></svg></span>.</strong> По моим гайдам ребята делают этот объем<br className="hidden md:block" /> за первые дни работы
+              <strong className="text-[#A1A1AA] font-bold tracking-wide">
+                Залил 100 подписчиков = окупил обучение
+              </strong>
             </p>
           </div>
           
@@ -570,8 +578,9 @@ export default function Home() {
               <svg className="absolute right-0 top-0 h-full w-5 sm:w-6 overflow-visible" viewBox="0 0 20 100" preserveAspectRatio="none" fill="none">
                 <path d="M 3 4 C 13 4 15 9 16 19 C 18 49 17 79 15 89 C 14 95 11 94 3 94" stroke="#CF3200" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
               </svg>
-              <p className="relative z-10 m-0 font-medium text-xl">
-                Если остались вопросы, пиши мне - <a href="https://t.me/xxxdimacion" target="_blank" rel="noopener noreferrer" className="text-[#CF3200] hover:text-[#A62800] font-bold hover:underline whitespace-nowrap transition-colors">@xxxdimacion</a>
+              <p className="relative z-10 m-0 font-medium text-lg sm:text-xl flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1">
+                <span>Если остались вопросы,</span>
+                <span className="whitespace-nowrap">пиши мне - <a href="https://t.me/xxxdimacion" target="_blank" rel="noopener noreferrer" className="text-[#CF3200] hover:text-[#A62800] font-bold hover:underline transition-colors">@xxxdimacion</a></span>
               </p>
             </div>
           </div>
