@@ -187,13 +187,13 @@ export default function Home() {
       {/* Block 1: Hero Section */}
       <section 
         id="hero" 
-        className="relative pt-32 pb-16 sm:pt-40 sm:pb-20 min-h-[90vh] flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto"
+        className="relative pt-24 pb-8 sm:pt-28 sm:pb-12 flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto"
       >
         <motion.div
           initial={{ opacity: 0, y: 150, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-10 w-full relative z-0 max-w-4xl mx-auto"
+          className="mb-6 w-full relative z-0 max-w-4xl mx-auto"
         >
           <h1 
             className="text-[28px] sm:text-4xl md:text-[46px] leading-[1.15] text-center font-black tracking-tighter mb-6 text-white"
@@ -212,7 +212,7 @@ export default function Home() {
           </p>
         </motion.div>
         
-        <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center mt-6">
+        <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center mt-2">
           <motion.div 
             initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -249,7 +249,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             onClick={(e) => scrollToSection(e, 'checkout')} 
-            className="mt-12 sm:mt-16 bg-[#CF3200] hover:bg-[#A62800] text-white font-bold py-4 px-10 sm:px-16 rounded-md text-lg sm:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(207,50,0,0.5)] uppercase tracking-wide w-full sm:w-auto"
+            className="mt-8 sm:mt-10 bg-[#CF3200] hover:bg-[#A62800] text-white font-bold py-4 px-10 sm:px-16 rounded-md text-lg sm:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(207,50,0,0.5)] uppercase tracking-wide w-full sm:w-auto"
           >
             ВСТУПИТЬ В TRAFF
           </motion.button>
@@ -372,7 +372,8 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="text-stone-600 text-sm space-y-2">
-                    <p>Зашел в начале апреля. Начал лить платный трафик с TikTok ADS на телеграм бота, где ему платили 40р (0.5$ за подписчика)</p>
+                    <p>Зашел в начале апреля. Начал лить платный трафик с TikTok ADS на телеграм бота, где ему платили <strong className="text-stone-900">40р</strong> (<strong className="text-stone-900">0.5$</strong> за подписчика)</p>
+                    <p>Итог - <strong className="text-stone-900">2.000$</strong> (<strong className="text-stone-900">150.000 руб</strong>) За первый месяц в TRAFF</p>
                   </div>
                   <div className="mt-4 pointer-events-auto">
                     <ImageCarousel images={[
