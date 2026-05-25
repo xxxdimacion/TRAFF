@@ -227,14 +227,15 @@ export default function Home() {
               
               {/* Video Player */}
               <div className="w-full h-full bg-stone-900 flex items-center justify-center overflow-hidden relative">
-                <iframe 
-                  className="w-full h-full"
-                  src="https://iframe.mediadelivery.net/embed/634586/27851b22-940d-48ea-8b6a-33b7be6e3dc2?autoplay=false&loop=false&muted=false&preload=true&responsive=true" 
-                  title="TRAFF Video" 
-                  frameBorder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                  allowFullScreen
-                ></iframe>
+                <div style={{ position: 'relative', width: '100%', paddingTop: '56.25%' }}>
+                  <iframe 
+                    src="https://player.mediadelivery.net/embed/634586/0df59f25-c4b0-4bec-8fbc-00f0077502c3?autoplay=false&loop=false&muted=false&preload=true&responsive=true" 
+                    loading="lazy" 
+                    style={{ border: 0, position: 'absolute', top: 0, left: 0, height: '100%', width: '100%' }} 
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen;" 
+                    allowFullScreen={true}
+                  ></iframe>
+                </div>
               </div>
             </div>
             {/* Base */}
