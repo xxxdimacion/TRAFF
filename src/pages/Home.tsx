@@ -196,19 +196,12 @@ export default function Home() {
           className="mb-6 w-full relative z-0 max-w-4xl mx-auto"
         >
           <h1 
-            className="text-[28px] sm:text-4xl md:text-[46px] leading-[1.15] text-center font-black tracking-tighter mb-6 text-white"
-            style={{ textShadow: "2px 2px 0px rgba(255, 255, 255, 0.15)" }}
+            className="text-[26px] sm:text-[32px] md:text-[40px] leading-[1.15] text-center font-black tracking-tighter mb-6 text-white text-balance"
           >
-            Как с нуля выйти <br />
-            на <span className="relative inline-block whitespace-nowrap">
-              2-3k$ в месяц
-              <svg className="absolute w-full h-3 -bottom-1 left-0 text-[#CF3200]" viewBox="0 0 100 12" preserveAspectRatio="none">
-                <path d="M 2 10 Q 50 0, 98 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" />
-              </svg>
-            </span> на арбитраже трафика?
+            <span className="text-[#CF3200] text-[1.1em]">TRAFF</span> - весь мой опыт в органическом и платном трафике
           </h1>
           <p className="text-sm sm:text-base md:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed font-medium">
-            <strong className="text-white font-bold">Смотри видео ниже:</strong> внутри готовая система, которая сэкономит тебе месяцы тестов, нервов и решит 99% проблем с банами и поиском связок
+            <strong className="text-white font-bold">Сэкономь себе месяцы тестов</strong>, нервов и времени. TRAFF решит все проблемы с банами, поиском связок и клиентов. <strong className="text-white font-bold">В видео ниже рассказал что внутри:</strong>
           </p>
         </motion.div>
         
@@ -229,7 +222,7 @@ export default function Home() {
               <div className="w-full h-full bg-stone-900 flex items-center justify-center overflow-hidden relative">
                 <div style={{ position: 'relative', width: '100%', paddingTop: '56.25%' }}>
                   <iframe 
-                    src="https://player.mediadelivery.net/embed/634586/0df59f25-c4b0-4bec-8fbc-00f0077502c3?autoplay=false&loop=false&muted=false&preload=true&responsive=true" 
+                    src="https://player.mediadelivery.net/embed/634586/0cfd4536-683c-448b-884d-b55e11fa565d?autoplay=false&loop=false&muted=false&preload=true&responsive=true" 
                     loading="lazy" 
                     style={{ border: 0, position: 'absolute', top: 0, left: 0, height: '100%', width: '100%' }} 
                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen;" 
